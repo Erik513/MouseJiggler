@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseJiggler", "MouseJiggler\MouseJiggler.csproj", "{2EE650F0-DFDB-430A-BD7A-23B03160E206}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EE650F0-DFDB-430A-BD7A-23B03160E206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE650F0-DFDB-430A-BD7A-23B03160E206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE650F0-DFDB-430A-BD7A-23B03160E206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE650F0-DFDB-430A-BD7A-23B03160E206}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AEC98CE8-7308-4285-B982-3D2EA63D8C4E}
+	EndGlobalSection
+EndGlobal
