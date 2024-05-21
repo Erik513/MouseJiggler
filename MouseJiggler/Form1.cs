@@ -7,38 +7,34 @@ namespace MouseJiggler
 {
     public partial class MainForm : Form
     {
-        private bool isDragging;
-        private Point lastLocation;
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        private const int SW_MAXIMIZE = 3;
-
-        private void dragPanel_MouseDown(object sender, MouseEventArgs e)
+        private Settings settingsForm;
+        private bool showInTaskbar;
+        public MainForm()
         {
-            isDragging = true;
-            lastLocation = e.Location;
+            InitializeComponent();
+            CenterToScreen();
+            DraggableControl draggablePanel = new DraggableControl(dragPanel);
         }
-
-        private void dragPanel_MouseMove(object sender, MouseEventArgs e)
+        private void OpenSettingsForm(object sender, EventArgs e)
         {
-            if (isDragging)
+            if (settingsForm == null || settingsForm.IsDisposed)
             {
-                int deltaX = e.Location.X - lastLocation.X;
-                int deltaY = e.Location.Y - lastLocation.Y;
-                this.Location = new Point(this.Location.X + deltaX, this.Location.Y + deltaY);
+                settingsForm = new Settings(this);
+                settingsForm.FormClosed += SettingsForm_FormClosed;
+                settingsForm.Show();
+            }
+            else
+            {
+                settingsForm.Activate();
             }
         }
-
-        private void dragPanel_MouseUp(object sender, MouseEventArgs e)
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            isDragging = false;
-            if (this.Top <= Screen.PrimaryScreen.WorkingArea.Top)
-            {
-                ShowWindow(this.Handle, SW_MAXIMIZE);
-            }
+            settingsForm = null;
         }
-        private void WindowMinimize(object sender, EventArgs e)
+        private void MinimizeWindow(object sender, EventArgs e)
         {
+            this.ShowInTaskbar = true;
             this.WindowState = FormWindowState.Minimized;
         }
         private void FensterSchließen(object sender, EventArgs e)
@@ -74,11 +70,7 @@ namespace MouseJiggler
         private bool isJiggling = false;
         private bool moveRight = true;
 
-        public MainForm()
-        {
-            InitializeComponent();
-            CenterToScreen();
-        }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
