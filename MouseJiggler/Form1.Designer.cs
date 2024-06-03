@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.timerMouseJiggler = new System.Windows.Forms.Timer(this.components);
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.pboxWindowMinimize = new System.Windows.Forms.PictureBox();
@@ -45,11 +44,6 @@
             this.dragPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSettings)).BeginInit();
             this.SuspendLayout();
-            // 
-            // timerMouseJiggler
-            // 
-            this.timerMouseJiggler.Interval = 1000;
-            this.timerMouseJiggler.Tick += new System.EventHandler(this.timerMouseJiggler_Tick);
             // 
             // pboxWindowClose
             // 
@@ -131,7 +125,6 @@
             this.Controls.Add(this.dragPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxWindowMinimize)).EndInit();
             this.dragPanel.ResumeLayout(false);
@@ -141,8 +134,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timerMouseJiggler;
         private System.Windows.Forms.PictureBox pboxWindowClose;
         private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.PictureBox pboxWindowMinimize;

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace MouseJiggler
 {
-    public class DraggableControl : Form
+    public partial class DraggableControl : Form
     {
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -51,5 +51,5 @@ namespace MouseJiggler
                 TargetControl.FindForm().Location = new Point(centerX - TargetControl.FindForm().Width / 2, centerY - TargetControl.FindForm().Height / 2);
             }
         }
-    }  
+    }
 }
