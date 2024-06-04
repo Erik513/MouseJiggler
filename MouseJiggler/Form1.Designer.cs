@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.pboxWindowMinimize = new System.Windows.Forms.PictureBox();
@@ -50,7 +49,7 @@
             this.pboxWindowClose.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pboxWindowClose.BackColor = System.Drawing.SystemColors.Control;
             this.pboxWindowClose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pboxWindowClose.Image = ((System.Drawing.Image)(resources.GetObject("pboxWindowClose.Image")));
+            this.pboxWindowClose.Image = global::MouseJiggler.Properties.Resources.delete;
             this.pboxWindowClose.Location = new System.Drawing.Point(145, -1);
             this.pboxWindowClose.Margin = new System.Windows.Forms.Padding(2);
             this.pboxWindowClose.Name = "pboxWindowClose";
@@ -79,7 +78,7 @@
             this.pboxWindowMinimize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pboxWindowMinimize.BackColor = System.Drawing.SystemColors.Control;
             this.pboxWindowMinimize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pboxWindowMinimize.Image = ((System.Drawing.Image)(resources.GetObject("pboxWindowMinimize.Image")));
+            this.pboxWindowMinimize.Image = global::MouseJiggler.Properties.Resources.navigate_close;
             this.pboxWindowMinimize.Location = new System.Drawing.Point(116, -1);
             this.pboxWindowMinimize.Margin = new System.Windows.Forms.Padding(2);
             this.pboxWindowMinimize.Name = "pboxWindowMinimize";
@@ -107,7 +106,7 @@
             // pboxSettings
             // 
             this.pboxSettings.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pboxSettings.Image = ((System.Drawing.Image)(resources.GetObject("pboxSettings.Image")));
+            this.pboxSettings.Image = global::MouseJiggler.Properties.Resources.gear;
             this.pboxSettings.Location = new System.Drawing.Point(90, -1);
             this.pboxSettings.Name = "pboxSettings";
             this.pboxSettings.Size = new System.Drawing.Size(21, 27);
