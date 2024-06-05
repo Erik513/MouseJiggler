@@ -5,10 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
-//using static MouseJiggler.RandomMovement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MouseJiggler
@@ -18,10 +19,12 @@ namespace MouseJiggler
         private MainForm mainForm;
         private bool topMostState;
         private bool showInTaskbar;
+        private TimeSpan startTime;
+        private TimeSpan stopTime;
 
         private void pboxWindowClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
             mainForm.WindowState = FormWindowState.Normal;
             mainForm.Show();
         }
@@ -31,7 +34,13 @@ namespace MouseJiggler
             InitializeComponent();
             CenterToScreen();
             BringToFront();
-            DraggableControl draggablePanel = new DraggableControl(dragPanel);
+            dragPanel.Dock = DockStyle.Fill;
+            DraggableControl draggableDragPanel = new DraggableControl(dragPanel);
+            DraggableControl draggableLblHotkey = new DraggableControl(lblHotkey);
+            DraggableControl draggableLblDuration = new DraggableControl(lblDuration);
+            DraggableControl draggableCbTopMost = new DraggableControl(cbTopMost);
+            DraggableControl draggableCbShowInTaskbar = new DraggableControl(cbShowInTaskbar);
+            
             cbTopMost.CheckStateChanged += CbTopMost_CheckStateChanged;
             cbTopMost.Checked = topMostState;
             cbShowInTaskbar.CheckStateChanged += CbShowInTaskbar_CheckStateChanged;
@@ -41,7 +50,6 @@ namespace MouseJiggler
         public Settings(MainForm form) : this()
         {
             mainForm = form;
-            lblESC.Visible = false;
             this.KeyPreview = true;
             //TopMost
             cbTopMost.Checked = form.TopMost;
@@ -54,8 +62,7 @@ namespace MouseJiggler
             trackBarInterval.Maximum = 600; // Maximum 60 Sekunden
             trackBarInterval.TickFrequency = 100;
             trackBarInterval.Value = mainForm.GetTimerInterval() / 100;
-            lblDuration.Text = $"Duration: {trackBarInterval.Value / 10.0} Second(s)";
-
+            lblDuration.Text = $"Duration: \n{trackBarInterval.Value / 10.0} Second(s)";
         }
 
         private void CbTopMost_CheckStateChanged(object sender, EventArgs e)
@@ -79,18 +86,13 @@ namespace MouseJiggler
 
         private void trackBarInterval_MouseMove(object sender, MouseEventArgs e)
         {
-            lblDuration.Text = $"Duration: {trackBarInterval.Value / 10.0} Second(s)";
+            lblDuration.Text = $"Duration: \n{trackBarInterval.Value / 10.0} Second(s)";
             //ttIntervalValue.SetToolTip(trackBarInterval, $"{trackBarInterval.Value / 10.0} Second(s)");
         }
         private void trackBarInterval_MouseUp(object sender, MouseEventArgs e)
         {
             int interval = (int)(trackBarInterval.Value * 100); // Wert in 100 Millisekunden
             mainForm.SetTimerInterval(interval);
-        }
-
-        private void lblRandom_Click(object sender, EventArgs e)
-        {
-                    
         }
     }
 }

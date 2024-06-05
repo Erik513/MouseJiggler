@@ -33,7 +33,7 @@
             this.cbTopMost = new System.Windows.Forms.CheckBox();
             this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
-            this.lblESC = new System.Windows.Forms.Label();
+            this.lblHotkey = new System.Windows.Forms.Label();
             this.lblDuration = new System.Windows.Forms.Label();
             this.trackBarInterval = new System.Windows.Forms.TrackBar();
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
@@ -46,7 +46,6 @@
             // 
             // cbTopMost
             // 
-            this.cbTopMost.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbTopMost.AutoSize = true;
             this.cbTopMost.ForeColor = System.Drawing.Color.White;
             this.cbTopMost.Location = new System.Drawing.Point(11, 11);
@@ -58,7 +57,6 @@
             // 
             // cbShowInTaskbar
             // 
-            this.cbShowInTaskbar.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbShowInTaskbar.AutoSize = true;
             this.cbShowInTaskbar.ForeColor = System.Drawing.Color.White;
             this.cbShowInTaskbar.Location = new System.Drawing.Point(11, 34);
@@ -72,7 +70,7 @@
             // 
             this.dragPanel.BackColor = System.Drawing.Color.Black;
             this.dragPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dragPanel.Controls.Add(this.lblESC);
+            this.dragPanel.Controls.Add(this.lblHotkey);
             this.dragPanel.Controls.Add(this.lblDuration);
             this.dragPanel.Controls.Add(this.trackBarInterval);
             this.dragPanel.Controls.Add(this.pboxWindowClose);
@@ -80,29 +78,28 @@
             this.dragPanel.Controls.Add(this.cbShowInTaskbar);
             this.dragPanel.Location = new System.Drawing.Point(0, 0);
             this.dragPanel.Name = "dragPanel";
-            this.dragPanel.Size = new System.Drawing.Size(362, 216);
+            this.dragPanel.Size = new System.Drawing.Size(290, 106);
             this.dragPanel.TabIndex = 10;
             // 
-            // lblESC
+            // lblHotkey
             // 
-            this.lblESC.AutoSize = true;
-            this.lblESC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblESC.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblESC.Location = new System.Drawing.Point(162, 11);
-            this.lblESC.Name = "lblESC";
-            this.lblESC.Size = new System.Drawing.Size(136, 25);
-            this.lblESC.TabIndex = 9;
-            this.lblESC.Text = "ESC To Stop";
-            this.lblESC.Visible = false;
+            this.lblHotkey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHotkey.AutoSize = true;
+            this.lblHotkey.BackColor = System.Drawing.Color.Black;
+            this.lblHotkey.ForeColor = System.Drawing.Color.White;
+            this.lblHotkey.Location = new System.Drawing.Point(140, 8);
+            this.lblHotkey.Name = "lblHotkey";
+            this.lblHotkey.Size = new System.Drawing.Size(119, 13);
+            this.lblHotkey.TabIndex = 10;
+            this.lblHotkey.Text = "HotKey: Cntrl + Shift + J";
             // 
             // lblDuration
             // 
-            this.lblDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblDuration.AutoSize = true;
-            this.lblDuration.BackColor = System.Drawing.Color.White;
-            this.lblDuration.Location = new System.Drawing.Point(216, 66);
+            this.lblDuration.BackColor = System.Drawing.Color.Black;
+            this.lblDuration.ForeColor = System.Drawing.Color.White;
+            this.lblDuration.Location = new System.Drawing.Point(195, 59);
             this.lblDuration.Name = "lblDuration";
-            this.lblDuration.Size = new System.Drawing.Size(47, 13);
+            this.lblDuration.Size = new System.Drawing.Size(85, 30);
             this.lblDuration.TabIndex = 5;
             this.lblDuration.Text = "Duration";
             // 
@@ -121,7 +118,7 @@
             this.pboxWindowClose.BackColor = System.Drawing.SystemColors.Control;
             this.pboxWindowClose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pboxWindowClose.Image = ((System.Drawing.Image)(resources.GetObject("pboxWindowClose.Image")));
-            this.pboxWindowClose.Location = new System.Drawing.Point(336, -1);
+            this.pboxWindowClose.Location = new System.Drawing.Point(264, -1);
             this.pboxWindowClose.Margin = new System.Windows.Forms.Padding(2);
             this.pboxWindowClose.Name = "pboxWindowClose";
             this.pboxWindowClose.Size = new System.Drawing.Size(25, 25);
@@ -135,7 +132,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlText;
-            this.ClientSize = new System.Drawing.Size(374, 228);
+            this.ClientSize = new System.Drawing.Size(297, 118);
             this.Controls.Add(this.dragPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Settings";
@@ -158,6 +155,6 @@
         private System.Windows.Forms.ToolTip ttIntervalValue;
         private System.Windows.Forms.Label lblDuration;
         private System.Windows.Forms.ToolTip ttDistance;
-        private System.Windows.Forms.Label lblESC;
+        private System.Windows.Forms.Label lblHotkey;
     }
 }
