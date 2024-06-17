@@ -1,120 +1,136 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace MouseJiggler
 {
     public partial class MainForm : Form
     {
-        private bool isDragging;
-        private Point lastLocation;
+        public MouseJiggler timerMouseJiggler = null;
+        private Settings settingsForm;
+
+        private const int HOTKEY_ID_STARTSTOP = 1;
         [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        private const int SW_MAXIMIZE = 3;
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
 
-        private void dragPanel_MouseDown(object sender, MouseEventArgs e)
+        [DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        private enum KeyModifiers
         {
-            isDragging = true;
-            lastLocation = e.Location;
+            None = 0,
+            Alt = 1,
+            Ctrl = 2,
+            Shift = 4,
+            WinKey = 8
         }
-
-        private void dragPanel_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragging)
-            {
-                int deltaX = e.Location.X - lastLocation.X;
-                int deltaY = e.Location.Y - lastLocation.Y;
-                this.Location = new Point(this.Location.X + deltaX, this.Location.Y + deltaY);
-            }
-        }
-
-        private void dragPanel_MouseUp(object sender, MouseEventArgs e)
-        {
-            isDragging = false;
-            if (this.Top <= Screen.PrimaryScreen.WorkingArea.Top)
-            {
-                ShowWindow(this.Handle, SW_MAXIMIZE);
-            }
-        }
-        private void WindowMinimize(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-        private void FensterSchließen(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        //_________________________________________________________________________________________________________________________________
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct INPUT
-        {
-            public int type;
-            public MOUSEINPUT mi;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MOUSEINPUT
-        {
-            public int dx;
-            public int dy;
-            public uint mouseData;
-            public uint dwFlags;
-            public uint time;
-            public IntPtr dwExtraInfo;
-        }
-        private const int INPUT_MOUSE = 0;
-        private const int MOUSEEVENTF_MOVE = 0x0001;
-
-        private bool isJiggling = false;
-        private bool moveRight = true;
 
         public MainForm()
         {
             InitializeComponent();
             CenterToScreen();
+            DraggableControl draggablePanel = new DraggableControl(dragPanel);
+            btnStartStop.BackColor = Color.Red;
+
+            timerMouseJiggler = new MouseJiggler();
+
+            RegisterHotKey(this.Handle, HOTKEY_ID_STARTSTOP, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.J);
+        }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_HOTKEY = 0x0312;
+
+            if (m.Msg == WM_HOTKEY)
+            {
+                int id = m.WParam.ToInt32();
+                if (id == HOTKEY_ID_STARTSTOP)
+                {
+                    StartStopMouseJiggler();
+                }
+            }
+
+            base.WndProc(ref m);
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            UnregisterHotKey(this.Handle, HOTKEY_ID_STARTSTOP);
+            base.OnFormClosing(e);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void OpenSettingsForm(object sender, EventArgs e)
         {
-            timerMouseJiggler.Interval = 60000;
+            if (settingsForm == null || settingsForm.IsDisposed)
+            {
+                settingsForm = new Settings(this);
+                settingsForm.FormClosed += SettingsForm_FormClosed;
+                settingsForm.Show();
+            }
+            else
+            {
+                settingsForm.Activate();
+            }
+        }
+
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            settingsForm = null;
+        }
+
+        private void MinimizeWindow(object sender, EventArgs e)
+        {
+            this.ShowInTaskbar = true;
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void FensterSchließen(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
-            if (isJiggling)
-            {
-                timerMouseJiggler.Stop();
-                btnStartStop.BackColor = Color.Red;
-            }
-            else
-            {
-                timerMouseJiggler.Start();
-                btnStartStop.BackColor = Color.Green;
-            }
-            isJiggling = !isJiggling;
+            StartStopMouseJiggler();
         }
 
-        private void timerMouseJiggler_Tick(object sender, EventArgs e)
+        public void StartStopMouseJiggler()
         {
-            int deltaX = moveRight ? 5 : -5;
-            MoveMouse(deltaX, 0);
-            moveRight = !moveRight;
+            timerMouseJiggler.StartStop();
+            UpdateStartStopButtonColor();
+        }
+        public void StartMouseJiggler()
+        {
+            if (timerMouseJiggler != null)
+            {
+                timerMouseJiggler.Start(); 
+                UpdateStartStopButtonColor(); 
+            }
+        }
+        public void StopMouseJiggler()
+        {
+            if (timerMouseJiggler != null)
+            {
+                timerMouseJiggler.Stop(); 
+                UpdateStartStopButtonColor();
+            }
+        }
+        public bool IsJiggling => timerMouseJiggler.IsJiggling;
+        public void UpdateStartStopButtonColor()
+        {
+            btnStartStop.BackColor = timerMouseJiggler.IsJiggling ? Color.Green : Color.Red;
         }
 
-        private void MoveMouse(int deltaX, int deltaY)
+        public void SetTimerInterval(int interval)
         {
-            INPUT[] input = new INPUT[1];
-            input[0].type = INPUT_MOUSE;
-            input[0].mi.dx = deltaX;
-            input[0].mi.dy = deltaY;
-            input[0].mi.dwFlags = MOUSEEVENTF_MOVE;
-            SendInput(1, input, Marshal.SizeOf(typeof(INPUT)));
+            timerMouseJiggler.SetTimerInterval(interval);
         }
+
+        public int GetTimerInterval()
+        {
+            return timerMouseJiggler.GetTimerInterval();
+        }
+
     }
 }
