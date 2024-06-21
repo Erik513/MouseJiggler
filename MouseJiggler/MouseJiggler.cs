@@ -46,6 +46,11 @@ namespace MouseJiggler
             timerMouseJiggler.Stop();
             isJiggling = !isJiggling;
         }
+        public void ForceStop()
+        {
+            timerMouseJiggler.Stop();
+            isJiggling = false;
+        }
         public void Start()
         {
             timerMouseJiggler.Start();
@@ -64,7 +69,7 @@ namespace MouseJiggler
             timerMouseJiggler.Interval = interval;
         }
 
-        public int GetTimerInterval()
+        public int GetMouseJigglerInterval()
         {
             return timerMouseJiggler.Interval;
         }

@@ -28,19 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.cbTopMost = new System.Windows.Forms.CheckBox();
             this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
-            this.lblHotkey = new System.Windows.Forms.Label();
-            this.lblDuration = new System.Windows.Forms.Label();
-            this.trackBarInterval = new System.Windows.Forms.TrackBar();
+            this.lblAutoclickerDuration = new System.Windows.Forms.Label();
+            this.trackBarIntervalAutoclicker = new System.Windows.Forms.TrackBar();
+            this.btnAutoclicker = new System.Windows.Forms.Button();
+            this.lblHotkeyAutoclicker = new System.Windows.Forms.Label();
+            this.lblHotkeyMouseJiggler = new System.Windows.Forms.Label();
+            this.lblMouseJigglerDuration = new System.Windows.Forms.Label();
+            this.trackBarIntervalMouseJiggler = new System.Windows.Forms.TrackBar();
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
-            this.ttIntervalValue = new System.Windows.Forms.ToolTip(this.components);
-            this.ttDistance = new System.Windows.Forms.ToolTip(this.components);
             this.dragPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalAutoclicker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseJiggler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,47 +72,95 @@
             // 
             this.dragPanel.BackColor = System.Drawing.Color.Black;
             this.dragPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dragPanel.Controls.Add(this.lblHotkey);
-            this.dragPanel.Controls.Add(this.lblDuration);
-            this.dragPanel.Controls.Add(this.trackBarInterval);
+            this.dragPanel.Controls.Add(this.lblAutoclickerDuration);
+            this.dragPanel.Controls.Add(this.trackBarIntervalAutoclicker);
+            this.dragPanel.Controls.Add(this.btnAutoclicker);
+            this.dragPanel.Controls.Add(this.lblHotkeyAutoclicker);
+            this.dragPanel.Controls.Add(this.lblHotkeyMouseJiggler);
+            this.dragPanel.Controls.Add(this.lblMouseJigglerDuration);
+            this.dragPanel.Controls.Add(this.trackBarIntervalMouseJiggler);
             this.dragPanel.Controls.Add(this.pboxWindowClose);
             this.dragPanel.Controls.Add(this.cbTopMost);
             this.dragPanel.Controls.Add(this.cbShowInTaskbar);
             this.dragPanel.Location = new System.Drawing.Point(0, 0);
             this.dragPanel.Name = "dragPanel";
-            this.dragPanel.Size = new System.Drawing.Size(290, 106);
+            this.dragPanel.Size = new System.Drawing.Size(290, 181);
             this.dragPanel.TabIndex = 10;
             // 
-            // lblHotkey
+            // lblAutoclickerDuration
             // 
-            this.lblHotkey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblHotkey.AutoSize = true;
-            this.lblHotkey.BackColor = System.Drawing.Color.Black;
-            this.lblHotkey.ForeColor = System.Drawing.Color.White;
-            this.lblHotkey.Location = new System.Drawing.Point(140, 8);
-            this.lblHotkey.Name = "lblHotkey";
-            this.lblHotkey.Size = new System.Drawing.Size(119, 13);
-            this.lblHotkey.TabIndex = 10;
-            this.lblHotkey.Text = "HotKey: Cntrl + Shift + J";
+            this.lblAutoclickerDuration.BackColor = System.Drawing.Color.Black;
+            this.lblAutoclickerDuration.ForeColor = System.Drawing.Color.White;
+            this.lblAutoclickerDuration.Location = new System.Drawing.Point(195, 130);
+            this.lblAutoclickerDuration.Name = "lblAutoclickerDuration";
+            this.lblAutoclickerDuration.Size = new System.Drawing.Size(85, 45);
+            this.lblAutoclickerDuration.TabIndex = 14;
+            this.lblAutoclickerDuration.Text = "Clicks per Minute";
             // 
-            // lblDuration
+            // trackBarIntervalAutoclicker
             // 
-            this.lblDuration.BackColor = System.Drawing.Color.Black;
-            this.lblDuration.ForeColor = System.Drawing.Color.White;
-            this.lblDuration.Location = new System.Drawing.Point(195, 59);
-            this.lblDuration.Name = "lblDuration";
-            this.lblDuration.Size = new System.Drawing.Size(85, 30);
-            this.lblDuration.TabIndex = 5;
-            this.lblDuration.Text = "Duration";
+            this.trackBarIntervalAutoclicker.Location = new System.Drawing.Point(3, 130);
+            this.trackBarIntervalAutoclicker.Name = "trackBarIntervalAutoclicker";
+            this.trackBarIntervalAutoclicker.Size = new System.Drawing.Size(186, 45);
+            this.trackBarIntervalAutoclicker.TabIndex = 13;
+            this.trackBarIntervalAutoclicker.TabStop = false;
+            this.trackBarIntervalAutoclicker.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseMove);
+            this.trackBarIntervalAutoclicker.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseUp);
             // 
-            // trackBarInterval
+            // btnAutoclicker
             // 
-            this.trackBarInterval.Location = new System.Drawing.Point(3, 57);
-            this.trackBarInterval.Name = "trackBarInterval";
-            this.trackBarInterval.Size = new System.Drawing.Size(186, 45);
-            this.trackBarInterval.TabIndex = 3;
-            this.trackBarInterval.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseMove);
-            this.trackBarInterval.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseUp);
+            this.btnAutoclicker.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnAutoclicker.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAutoclicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAutoclicker.Location = new System.Drawing.Point(11, 108);
+            this.btnAutoclicker.Name = "btnAutoclicker";
+            this.btnAutoclicker.Size = new System.Drawing.Size(65, 19);
+            this.btnAutoclicker.TabIndex = 12;
+            this.btnAutoclicker.UseVisualStyleBackColor = false;
+            // 
+            // lblHotkeyAutoclicker
+            // 
+            this.lblHotkeyAutoclicker.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblHotkeyAutoclicker.AutoSize = true;
+            this.lblHotkeyAutoclicker.BackColor = System.Drawing.Color.Black;
+            this.lblHotkeyAutoclicker.ForeColor = System.Drawing.Color.White;
+            this.lblHotkeyAutoclicker.Location = new System.Drawing.Point(82, 110);
+            this.lblHotkeyAutoclicker.Name = "lblHotkeyAutoclicker";
+            this.lblHotkeyAutoclicker.Size = new System.Drawing.Size(177, 13);
+            this.lblHotkeyAutoclicker.TabIndex = 11;
+            this.lblHotkeyAutoclicker.Text = "Autoclicker HotKey: Cntrl + Shift + K";
+            // 
+            // lblHotkeyMouseJiggler
+            // 
+            this.lblHotkeyMouseJiggler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHotkeyMouseJiggler.AutoSize = true;
+            this.lblHotkeyMouseJiggler.BackColor = System.Drawing.Color.Black;
+            this.lblHotkeyMouseJiggler.ForeColor = System.Drawing.Color.White;
+            this.lblHotkeyMouseJiggler.Location = new System.Drawing.Point(140, 8);
+            this.lblHotkeyMouseJiggler.Name = "lblHotkeyMouseJiggler";
+            this.lblHotkeyMouseJiggler.Size = new System.Drawing.Size(119, 13);
+            this.lblHotkeyMouseJiggler.TabIndex = 10;
+            this.lblHotkeyMouseJiggler.Text = "HotKey: Cntrl + Shift + J";
+            // 
+            // lblMouseJigglerDuration
+            // 
+            this.lblMouseJigglerDuration.BackColor = System.Drawing.Color.Black;
+            this.lblMouseJigglerDuration.ForeColor = System.Drawing.Color.White;
+            this.lblMouseJigglerDuration.Location = new System.Drawing.Point(195, 59);
+            this.lblMouseJigglerDuration.Name = "lblMouseJigglerDuration";
+            this.lblMouseJigglerDuration.Size = new System.Drawing.Size(85, 43);
+            this.lblMouseJigglerDuration.TabIndex = 5;
+            this.lblMouseJigglerDuration.Text = "Duration";
+            // 
+            // trackBarIntervalMouseJiggler
+            // 
+            this.trackBarIntervalMouseJiggler.Location = new System.Drawing.Point(3, 57);
+            this.trackBarIntervalMouseJiggler.Name = "trackBarIntervalMouseJiggler";
+            this.trackBarIntervalMouseJiggler.Size = new System.Drawing.Size(186, 45);
+            this.trackBarIntervalMouseJiggler.TabIndex = 3;
+            this.trackBarIntervalMouseJiggler.TabStop = false;
+            this.trackBarIntervalMouseJiggler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseMove);
+            this.trackBarIntervalMouseJiggler.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseUp);
             // 
             // pboxWindowClose
             // 
@@ -132,14 +182,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlText;
-            this.ClientSize = new System.Drawing.Size(297, 118);
+            this.ClientSize = new System.Drawing.Size(297, 193);
             this.Controls.Add(this.dragPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Settings";
             this.Text = "Settings";
             this.dragPanel.ResumeLayout(false);
             this.dragPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalAutoclicker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseJiggler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).EndInit();
             this.ResumeLayout(false);
 
@@ -151,10 +202,12 @@
         private System.Windows.Forms.CheckBox cbShowInTaskbar;
         private System.Windows.Forms.Panel dragPanel;
         private System.Windows.Forms.PictureBox pboxWindowClose;
-        private System.Windows.Forms.TrackBar trackBarInterval;
-        private System.Windows.Forms.ToolTip ttIntervalValue;
-        private System.Windows.Forms.Label lblDuration;
-        private System.Windows.Forms.ToolTip ttDistance;
-        private System.Windows.Forms.Label lblHotkey;
+        private System.Windows.Forms.TrackBar trackBarIntervalMouseJiggler;
+        private System.Windows.Forms.Label lblMouseJigglerDuration;
+        private System.Windows.Forms.Label lblHotkeyMouseJiggler;
+        private System.Windows.Forms.Label lblHotkeyAutoclicker;
+        private System.Windows.Forms.Button btnAutoclicker;
+        private System.Windows.Forms.Label lblAutoclickerDuration;
+        private System.Windows.Forms.TrackBar trackBarIntervalAutoclicker;
     }
 }
