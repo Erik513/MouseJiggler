@@ -9,10 +9,15 @@ namespace MouseJiggler
 {
     public partial class MainForm : Form
     {
-        public MouseJiggler timerMouseJiggler = null;
         private Settings settingsForm;
 
+        public MouseJiggler timerMouseJiggler = null;
         private const int HOTKEY_ID_STARTSTOP = 1;
+
+        public MouseAutoClicker mouseAutoClicker = null;
+        private const int HOTKEY_ID_AUTOCLICKER = 2;
+        private bool isAutoclickerRunning = false;
+
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
 
@@ -36,8 +41,10 @@ namespace MouseJiggler
             btnStartStop.BackColor = Color.Red;
 
             timerMouseJiggler = new MouseJiggler();
+            mouseAutoClicker = new MouseAutoClicker();
 
             RegisterHotKey(this.Handle, HOTKEY_ID_STARTSTOP, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.J);
+            RegisterHotKey(this.Handle, HOTKEY_ID_AUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.K);
         }
         protected override void WndProc(ref Message m)
         {
@@ -48,7 +55,11 @@ namespace MouseJiggler
                 int id = m.WParam.ToInt32();
                 if (id == HOTKEY_ID_STARTSTOP)
                 {
-                    StartStopMouseJiggler();
+                    if (!isAutoclickerRunning) StartStopMouseJiggler();
+                }
+                else if (id == HOTKEY_ID_AUTOCLICKER)
+                {
+                    if (settingsForm != null && !IsJiggling) StartStopAutoClicker();
                 }
             }
 
@@ -57,6 +68,7 @@ namespace MouseJiggler
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             UnregisterHotKey(this.Handle, HOTKEY_ID_STARTSTOP);
+            UnregisterHotKey(this.Handle, HOTKEY_ID_AUTOCLICKER);
             base.OnFormClosing(e);
         }
 
@@ -95,10 +107,34 @@ namespace MouseJiggler
             StartStopMouseJiggler();
         }
 
+        private void StartStopAutoClicker()
+        {
+            BtnStartStop_Enabled();
+            if (isAutoclickerRunning)
+            {
+                mouseAutoClicker.Stop();
+                isAutoclickerRunning = false;
+            }
+            else
+            {
+                timerMouseJiggler.ForceStop();
+                UpdateStartStopButtonColor();
+                mouseAutoClicker.Start();
+                isAutoclickerRunning = true;
+            }
+            if (settingsForm != null)
+            {
+                settingsForm.UpdateAutoclickerButtonColor();
+                settingsForm.UpdateSettingsOnIsAutoclickerRunning_Enabled();
+            }
+
+        }
+        public bool IsAutoclickerRunning => isAutoclickerRunning;
         public void StartStopMouseJiggler()
         {
             timerMouseJiggler.StartStop();
             UpdateStartStopButtonColor();
+            if (settingsForm != null) settingsForm.UpdateSettingsOnIsJiggling_Enabled();
         }
         public void StartMouseJiggler()
         {
@@ -121,15 +157,26 @@ namespace MouseJiggler
         {
             btnStartStop.BackColor = timerMouseJiggler.IsJiggling ? Color.Green : Color.Red;
         }
+        private void BtnStartStop_Enabled()
+        {
+            btnStartStop.Enabled = IsAutoclickerRunning ? false : true;
+        }
 
-        public void SetTimerInterval(int interval)
+        public void SetMouseJigglerrInterval(int interval)
         {
             timerMouseJiggler.SetTimerInterval(interval);
         }
-
-        public int GetTimerInterval()
+        public int GetMouseJigglerInterval()
         {
-            return timerMouseJiggler.GetTimerInterval();
+            return timerMouseJiggler.GetMouseJigglerInterval();
+        }
+        public void SetAutoclickerInterval(int interval)
+        {
+            mouseAutoClicker.SetClickInterval(interval);
+        }
+        public int GetAutoclickerInterval()
+        {
+            return mouseAutoClicker.GetAutoclickerInterval();
         }
 
     }
