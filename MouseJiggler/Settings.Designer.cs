@@ -33,6 +33,8 @@
             this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
             this.panelColorAutoClicker = new System.Windows.Forms.Panel();
+            this.lblColorFound = new System.Windows.Forms.Label();
+            this.btnColorFoundStatus = new System.Windows.Forms.Button();
             this.cboxColor = new System.Windows.Forms.ComboBox();
             this.lblColorAutoClicker = new System.Windows.Forms.Label();
             this.lblHotkeyColorAutoClicker = new System.Windows.Forms.Label();
@@ -52,8 +54,6 @@
             this.panelGeneralSettings = new System.Windows.Forms.Panel();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
-            this.btnColorFoundStatus = new System.Windows.Forms.Button();
-            this.lblColorFound = new System.Windows.Forms.Label();
             this.dragPanel.SuspendLayout();
             this.panelColorAutoClicker.SuspendLayout();
             this.panelMouseAutoClicker.SuspendLayout();
@@ -114,6 +114,29 @@
             this.panelColorAutoClicker.Name = "panelColorAutoClicker";
             this.panelColorAutoClicker.Size = new System.Drawing.Size(400, 100);
             this.panelColorAutoClicker.TabIndex = 18;
+            // 
+            // lblColorFound
+            // 
+            this.lblColorFound.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblColorFound.AutoSize = true;
+            this.lblColorFound.BackColor = System.Drawing.Color.Black;
+            this.lblColorFound.ForeColor = System.Drawing.Color.White;
+            this.lblColorFound.Location = new System.Drawing.Point(191, 48);
+            this.lblColorFound.Name = "lblColorFound";
+            this.lblColorFound.Size = new System.Drawing.Size(64, 13);
+            this.lblColorFound.TabIndex = 15;
+            this.lblColorFound.Text = "Color Found";
+            // 
+            // btnColorFoundStatus
+            // 
+            this.btnColorFoundStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnColorFoundStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.btnColorFoundStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnColorFoundStatus.Location = new System.Drawing.Point(194, 64);
+            this.btnColorFoundStatus.Name = "btnColorFoundStatus";
+            this.btnColorFoundStatus.Size = new System.Drawing.Size(61, 19);
+            this.btnColorFoundStatus.TabIndex = 14;
+            this.btnColorFoundStatus.UseVisualStyleBackColor = false;
             // 
             // cboxColor
             // 
@@ -336,29 +359,6 @@
             this.pboxWindowClose.TabIndex = 4;
             this.pboxWindowClose.TabStop = false;
             this.pboxWindowClose.Click += new System.EventHandler(this.pboxWindowClose_Click);
-            // 
-            // btnColorFoundStatus
-            // 
-            this.btnColorFoundStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnColorFoundStatus.BackColor = System.Drawing.SystemColors.Control;
-            this.btnColorFoundStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnColorFoundStatus.Location = new System.Drawing.Point(244, 64);
-            this.btnColorFoundStatus.Name = "btnColorFoundStatus";
-            this.btnColorFoundStatus.Size = new System.Drawing.Size(61, 19);
-            this.btnColorFoundStatus.TabIndex = 14;
-            this.btnColorFoundStatus.UseVisualStyleBackColor = false;
-            // 
-            // lblColorFound
-            // 
-            this.lblColorFound.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lblColorFound.AutoSize = true;
-            this.lblColorFound.BackColor = System.Drawing.Color.Black;
-            this.lblColorFound.ForeColor = System.Drawing.Color.White;
-            this.lblColorFound.Location = new System.Drawing.Point(241, 48);
-            this.lblColorFound.Name = "lblColorFound";
-            this.lblColorFound.Size = new System.Drawing.Size(64, 13);
-            this.lblColorFound.TabIndex = 15;
-            this.lblColorFound.Text = "Color Found";
             // 
             // Settings
             // 

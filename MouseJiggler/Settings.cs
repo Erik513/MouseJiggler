@@ -78,23 +78,7 @@ namespace MouseJiggler
                 mainForm.SetColorAutoClickerTargetColor(color);
             }
         }
-        public void UpdateColorStatusButton(Color targetColor, bool isMouseOverTargetColor)
-        {
-            btnColorFoundStatus.BackColor = isMouseOverTargetColor ? Color.Green : Color.Red;
-        }
 
-        private void SetButtonColors()
-        {
-            btnMouseAutoClicker.BackColor = mainForm.IsMouseAutoClickerRunning ? Color.Green : Color.Red;
-            btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
-            //btnColorFoundStatus.BackColor = colorAutoClicker.CheckMouseColorAndClick() ? Color.Green : Color.Red;
-            btnColorAutoClicker.BackColor = mainForm.IsColorAutoClickerRunning ? Color.Green : Color.Red;
-        }
-        private void SetNotVisibleControls()
-        {
-            lblColorFound.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
-            btnColorFoundStatus.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
-        }
 
         public Settings(MainForm form) : this()
         {
@@ -126,15 +110,43 @@ namespace MouseJiggler
             SetButtonColors();
             SetNotVisibleControls();
         }
+        private void SetButtonColors()
+        {
+            btnMouseAutoClicker.BackColor = mainForm.IsMouseAutoClickerRunning ? Color.Green : Color.Red;
+            btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
+            btnColorAutoClicker.BackColor = mainForm.IsColorAutoClickerRunning ? Color.Green : Color.Red;
+        }
+        private void SetNotVisibleControls()
+        {
+            lblColorFound.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
+            btnColorFoundStatus.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
+        }
+        //UPDATE
+        public void UpdateMouseAutoClickerButtonColor()
+        {
+            btnMouseAutoClicker.BackColor = mainForm.IsMouseAutoClickerRunning ? Color.Green : Color.Red;
+        }
         public void UpdateColorAutoClickerButtonColor()
         {
             btnColorAutoClicker.BackColor = mainForm.IsColorAutoClickerRunning ? Color.Green : Color.Red;
             lblColorFound.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
             btnColorFoundStatus.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
         }
-        public void UpdateMouseAutoClickerButtonColor()
+        public void UpdateColorStatusButton(Color targetColor, bool isMouseOverTargetColor)
         {
-            btnMouseAutoClicker.BackColor = mainForm.IsMouseAutoClickerRunning ? Color.Green : Color.Red;
+            btnColorFoundStatus.BackColor = isMouseOverTargetColor ? Color.Green : Color.Red;
+        }
+        /// <summary>
+        /// Depending on IsJiggling
+        /// </summary>
+        public void UpdateSettingsOnIsJiggling_Enabled()
+        {
+            cbTopMost.Enabled = mainForm.IsJiggling ? false : true;
+            cbShowInTaskbar.Enabled = mainForm.IsJiggling ? false : true;
+            trackBarIntervalMouseJiggler.Enabled = mainForm.IsJiggling ? false : true;
+            trackBarIntervalMouseAutoClicker.Enabled = mainForm.IsJiggling ? false : true;
+            pboxWindowClose.Enabled = mainForm.IsJiggling ? false : true;
+            btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
         }
         /// <summary>
         /// Depending on IsAutoclickerRunning
@@ -150,14 +162,13 @@ namespace MouseJiggler
         /// <summary>
         /// Depending on IsJiggling
         /// </summary>
-        public void UpdateSettingsOnIsJiggling_Enabled()
+        public void UpdateSettingsOnIsColorAutoClickerRunning_Enabled()
         {
             cbTopMost.Enabled = mainForm.IsJiggling ? false : true;
             cbShowInTaskbar.Enabled = mainForm.IsJiggling ? false : true;
             trackBarIntervalMouseJiggler.Enabled = mainForm.IsJiggling ? false : true;
             trackBarIntervalMouseAutoClicker.Enabled = mainForm.IsJiggling ? false : true;
-            pboxWindowClose.Enabled = mainForm.IsJiggling ? false : true;
-            btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
+            pboxWindowClose.Enabled = mainForm.IsColorAutoClickerRunning ? false : true;
         }
 
         private void CbTopMost_CheckStateChanged(object sender, EventArgs e)
@@ -196,7 +207,6 @@ namespace MouseJiggler
 
         private void trackBarIntervalAutoclicker_MouseUp(object sender, MouseEventArgs e)
         {
-            //int interval = (int)(trackBarIntervalAutoclicker.Value);
             int interval = 6000 / trackBarIntervalMouseAutoClicker.Value;
             mainForm.SetAutoclickerInterval(interval);
         }
