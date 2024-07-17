@@ -19,7 +19,7 @@ namespace MouseJiggler
         private bool isMouseAutoClickerRunning = false;
 
 
-        public ColorAutoClicker colorAutoClicker = null;
+        public ColorAutoClicker colorAutoClicker;
         private const int HOTKEY_ID_COLORAUTOCLICKER = 3;
         private bool isColorAutoClickerRunning = false;
 
@@ -47,12 +47,11 @@ namespace MouseJiggler
 
             timerMouseJiggler = new MouseJiggler();
             mouseAutoClicker = new MouseAutoClicker();
-            colorAutoClicker = new ColorAutoClicker();
+            colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
 
             RegisterHotKey(this.Handle, HOTKEY_ID_MOUSEJIGGLER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.J);
             RegisterHotKey(this.Handle, HOTKEY_ID_MOUSEAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.K);
-            //Hotkey Für ColorAutoClicker festlegen
-            //RegisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.L);
+            RegisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.L);
         }
         protected override void WndProc(ref Message m)
         {
@@ -63,11 +62,15 @@ namespace MouseJiggler
                 int id = m.WParam.ToInt32();
                 if (id == HOTKEY_ID_MOUSEJIGGLER)
                 {
-                    if (!isMouseAutoClickerRunning) StartStopMouseJiggler();
+                    if (!isMouseAutoClickerRunning && !isColorAutoClickerRunning) StartStopMouseJiggler();
                 }
                 else if (id == HOTKEY_ID_MOUSEAUTOCLICKER)
                 {
-                    if (settingsForm != null && !IsJiggling) StartStopMouseAutoClicker();
+                    if (settingsForm != null && !IsJiggling && !isColorAutoClickerRunning) StartStopMouseAutoClicker();
+                }
+                else if (id == HOTKEY_ID_COLORAUTOCLICKER)
+                {
+                    if (settingsForm != null && !IsJiggling && !isMouseAutoClickerRunning) ToggleColorAutoClicker();
                 }
             }
 
@@ -77,7 +80,7 @@ namespace MouseJiggler
         {
             UnregisterHotKey(this.Handle, HOTKEY_ID_MOUSEJIGGLER);
             UnregisterHotKey(this.Handle, HOTKEY_ID_MOUSEAUTOCLICKER);
-            //UnregisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER);
+            UnregisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER);
             base.OnFormClosing(e);
         }
 
@@ -133,7 +136,7 @@ namespace MouseJiggler
             }
             if (settingsForm != null)
             {
-                settingsForm.UpdateAutoclickerButtonColor();
+                settingsForm.UpdateMouseAutoClickerButtonColor();
                 settingsForm.UpdateSettingsOnIsAutoclickerRunning_Enabled();
             }
 
@@ -188,5 +191,40 @@ namespace MouseJiggler
             return mouseAutoClicker.GetAutoclickerInterval();
         }
 
+        public void ToggleColorAutoClicker()
+        {
+            if (colorAutoClicker.IsColorAutoClickerRunning)
+            {
+                colorAutoClicker.Stop();
+            }
+            else
+            {
+                colorAutoClicker.Start();
+            }
+            UpdateColorAutoClickerButtonColor();
+        }
+
+        public bool IsColorAutoClickerRunning => colorAutoClicker.IsColorAutoClickerRunning;
+
+        public void SetColorAutoClickerTargetColor(Color color)
+        {
+            colorAutoClicker.SetTargetColor(color);
+        }
+
+        private void UpdateColorAutoClickerButtonColor()
+        {
+            if (settingsForm != null)
+            {
+                settingsForm.UpdateColorAutoClickerButtonColor();
+            }
+        }
+
+        private void UpdateColorStatusButton(Color targetColor, bool isMouseOverTargetColor)
+        {
+            if (settingsForm != null)
+            {
+                settingsForm.UpdateColorStatusButton(targetColor, isMouseOverTargetColor);
+            }
+        }
     }
 }

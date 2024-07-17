@@ -32,28 +32,36 @@
             this.cbTopMost = new System.Windows.Forms.CheckBox();
             this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
-            this.lblMouseAutoClickerDuration = new System.Windows.Forms.Label();
-            this.trackBarIntervalMouseAutoClicker = new System.Windows.Forms.TrackBar();
-            this.btnMouseAutoClicker = new System.Windows.Forms.Button();
-            this.lblHotkeyMouseAutoClicker = new System.Windows.Forms.Label();
-            this.lblHotkeyMouseJiggler = new System.Windows.Forms.Label();
-            this.lblMouseJigglerDuration = new System.Windows.Forms.Label();
-            this.trackBarIntervalMouseJiggler = new System.Windows.Forms.TrackBar();
-            this.pboxWindowClose = new System.Windows.Forms.PictureBox();
-            this.panelGeneralSettings = new System.Windows.Forms.Panel();
-            this.lblGeneralSettings = new System.Windows.Forms.Label();
-            this.panelMouseJiggler = new System.Windows.Forms.Panel();
-            this.lblMouseJiggler = new System.Windows.Forms.Label();
+            this.panelColorAutoClicker = new System.Windows.Forms.Panel();
+            this.cboxColor = new System.Windows.Forms.ComboBox();
+            this.lblColorAutoClicker = new System.Windows.Forms.Label();
+            this.lblHotkeyColorAutoClicker = new System.Windows.Forms.Label();
+            this.btnColorAutoClicker = new System.Windows.Forms.Button();
             this.panelMouseAutoClicker = new System.Windows.Forms.Panel();
             this.lblMouseAutoClicker = new System.Windows.Forms.Label();
+            this.trackBarIntervalMouseAutoClicker = new System.Windows.Forms.TrackBar();
+            this.lblHotkeyMouseAutoClicker = new System.Windows.Forms.Label();
+            this.lblMouseAutoClickerDuration = new System.Windows.Forms.Label();
+            this.btnMouseAutoClicker = new System.Windows.Forms.Button();
+            this.panelMouseJiggler = new System.Windows.Forms.Panel();
             this.btnMouseJiggler = new System.Windows.Forms.Button();
+            this.lblMouseJiggler = new System.Windows.Forms.Label();
+            this.trackBarIntervalMouseJiggler = new System.Windows.Forms.TrackBar();
+            this.lblMouseJigglerDuration = new System.Windows.Forms.Label();
+            this.lblHotkeyMouseJiggler = new System.Windows.Forms.Label();
+            this.panelGeneralSettings = new System.Windows.Forms.Panel();
+            this.lblGeneralSettings = new System.Windows.Forms.Label();
+            this.pboxWindowClose = new System.Windows.Forms.PictureBox();
+            this.btnColorFoundStatus = new System.Windows.Forms.Button();
+            this.lblColorFound = new System.Windows.Forms.Label();
             this.dragPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseAutoClicker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseJiggler)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).BeginInit();
-            this.panelGeneralSettings.SuspendLayout();
-            this.panelMouseJiggler.SuspendLayout();
+            this.panelColorAutoClicker.SuspendLayout();
             this.panelMouseAutoClicker.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseAutoClicker)).BeginInit();
+            this.panelMouseJiggler.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseJiggler)).BeginInit();
+            this.panelGeneralSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).BeginInit();
             this.SuspendLayout();
             // 
             // cbTopMost
@@ -82,162 +90,88 @@
             // 
             this.dragPanel.BackColor = System.Drawing.Color.Black;
             this.dragPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dragPanel.Controls.Add(this.panelColorAutoClicker);
             this.dragPanel.Controls.Add(this.panelMouseAutoClicker);
             this.dragPanel.Controls.Add(this.panelMouseJiggler);
             this.dragPanel.Controls.Add(this.panelGeneralSettings);
             this.dragPanel.Location = new System.Drawing.Point(5, 5);
             this.dragPanel.Name = "dragPanel";
-            this.dragPanel.Size = new System.Drawing.Size(413, 413);
+            this.dragPanel.Size = new System.Drawing.Size(410, 425);
             this.dragPanel.TabIndex = 10;
             // 
-            // lblMouseAutoClickerDuration
+            // panelColorAutoClicker
             // 
-            this.lblMouseAutoClickerDuration.BackColor = System.Drawing.Color.Black;
-            this.lblMouseAutoClickerDuration.ForeColor = System.Drawing.Color.White;
-            this.lblMouseAutoClickerDuration.Location = new System.Drawing.Point(206, 38);
-            this.lblMouseAutoClickerDuration.Name = "lblMouseAutoClickerDuration";
-            this.lblMouseAutoClickerDuration.Size = new System.Drawing.Size(85, 45);
-            this.lblMouseAutoClickerDuration.TabIndex = 14;
-            this.lblMouseAutoClickerDuration.Text = "Clicks per Minute";
+            this.panelColorAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelColorAutoClicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelColorAutoClicker.Controls.Add(this.lblColorFound);
+            this.panelColorAutoClicker.Controls.Add(this.btnColorFoundStatus);
+            this.panelColorAutoClicker.Controls.Add(this.cboxColor);
+            this.panelColorAutoClicker.Controls.Add(this.lblColorAutoClicker);
+            this.panelColorAutoClicker.Controls.Add(this.lblHotkeyColorAutoClicker);
+            this.panelColorAutoClicker.Controls.Add(this.btnColorAutoClicker);
+            this.panelColorAutoClicker.Location = new System.Drawing.Point(5, 320);
+            this.panelColorAutoClicker.Name = "panelColorAutoClicker";
+            this.panelColorAutoClicker.Size = new System.Drawing.Size(400, 100);
+            this.panelColorAutoClicker.TabIndex = 18;
             // 
-            // trackBarIntervalMouseAutoClicker
+            // cboxColor
             // 
-            this.trackBarIntervalMouseAutoClicker.Location = new System.Drawing.Point(14, 38);
-            this.trackBarIntervalMouseAutoClicker.Name = "trackBarIntervalMouseAutoClicker";
-            this.trackBarIntervalMouseAutoClicker.Size = new System.Drawing.Size(186, 45);
-            this.trackBarIntervalMouseAutoClicker.TabIndex = 13;
-            this.trackBarIntervalMouseAutoClicker.TabStop = false;
-            this.trackBarIntervalMouseAutoClicker.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseMove);
-            this.trackBarIntervalMouseAutoClicker.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseUp);
+            this.cboxColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboxColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxColor.FormattingEnabled = true;
+            this.cboxColor.Location = new System.Drawing.Point(15, 64);
+            this.cboxColor.Name = "cboxColor";
+            this.cboxColor.Size = new System.Drawing.Size(173, 21);
+            this.cboxColor.TabIndex = 13;
             // 
-            // btnMouseAutoClicker
+            // lblColorAutoClicker
             // 
-            this.btnMouseAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMouseAutoClicker.BackColor = System.Drawing.SystemColors.Control;
-            this.btnMouseAutoClicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMouseAutoClicker.Location = new System.Drawing.Point(317, 64);
-            this.btnMouseAutoClicker.Name = "btnMouseAutoClicker";
-            this.btnMouseAutoClicker.Size = new System.Drawing.Size(65, 19);
-            this.btnMouseAutoClicker.TabIndex = 12;
-            this.btnMouseAutoClicker.UseVisualStyleBackColor = false;
+            this.lblColorAutoClicker.AutoSize = true;
+            this.lblColorAutoClicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblColorAutoClicker.ForeColor = System.Drawing.Color.White;
+            this.lblColorAutoClicker.Location = new System.Drawing.Point(10, 10);
+            this.lblColorAutoClicker.Name = "lblColorAutoClicker";
+            this.lblColorAutoClicker.Size = new System.Drawing.Size(179, 25);
+            this.lblColorAutoClicker.TabIndex = 0;
+            this.lblColorAutoClicker.Text = "ColorAutoClicker:";
             // 
-            // lblHotkeyMouseAutoClicker
+            // lblHotkeyColorAutoClicker
             // 
-            this.lblHotkeyMouseAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblHotkeyMouseAutoClicker.AutoSize = true;
-            this.lblHotkeyMouseAutoClicker.BackColor = System.Drawing.Color.Black;
-            this.lblHotkeyMouseAutoClicker.ForeColor = System.Drawing.Color.White;
-            this.lblHotkeyMouseAutoClicker.Location = new System.Drawing.Point(261, 10);
-            this.lblHotkeyMouseAutoClicker.Name = "lblHotkeyMouseAutoClicker";
-            this.lblHotkeyMouseAutoClicker.Size = new System.Drawing.Size(121, 13);
-            this.lblHotkeyMouseAutoClicker.TabIndex = 11;
-            this.lblHotkeyMouseAutoClicker.Text = "HotKey: Cntrl + Shift + K";
+            this.lblHotkeyColorAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHotkeyColorAutoClicker.AutoSize = true;
+            this.lblHotkeyColorAutoClicker.BackColor = System.Drawing.Color.Black;
+            this.lblHotkeyColorAutoClicker.ForeColor = System.Drawing.Color.White;
+            this.lblHotkeyColorAutoClicker.Location = new System.Drawing.Point(274, 10);
+            this.lblHotkeyColorAutoClicker.Name = "lblHotkeyColorAutoClicker";
+            this.lblHotkeyColorAutoClicker.Size = new System.Drawing.Size(120, 13);
+            this.lblHotkeyColorAutoClicker.TabIndex = 11;
+            this.lblHotkeyColorAutoClicker.Text = "HotKey: Cntrl + Shift + L";
             // 
-            // lblHotkeyMouseJiggler
+            // btnColorAutoClicker
             // 
-            this.lblHotkeyMouseJiggler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblHotkeyMouseJiggler.AutoSize = true;
-            this.lblHotkeyMouseJiggler.BackColor = System.Drawing.Color.Black;
-            this.lblHotkeyMouseJiggler.ForeColor = System.Drawing.Color.White;
-            this.lblHotkeyMouseJiggler.Location = new System.Drawing.Point(263, 10);
-            this.lblHotkeyMouseJiggler.Name = "lblHotkeyMouseJiggler";
-            this.lblHotkeyMouseJiggler.Size = new System.Drawing.Size(119, 13);
-            this.lblHotkeyMouseJiggler.TabIndex = 10;
-            this.lblHotkeyMouseJiggler.Text = "HotKey: Cntrl + Shift + J";
-            // 
-            // lblMouseJigglerDuration
-            // 
-            this.lblMouseJigglerDuration.BackColor = System.Drawing.Color.Black;
-            this.lblMouseJigglerDuration.ForeColor = System.Drawing.Color.White;
-            this.lblMouseJigglerDuration.Location = new System.Drawing.Point(207, 40);
-            this.lblMouseJigglerDuration.Name = "lblMouseJigglerDuration";
-            this.lblMouseJigglerDuration.Size = new System.Drawing.Size(85, 43);
-            this.lblMouseJigglerDuration.TabIndex = 5;
-            this.lblMouseJigglerDuration.Text = "Duration";
-            // 
-            // trackBarIntervalMouseJiggler
-            // 
-            this.trackBarIntervalMouseJiggler.Location = new System.Drawing.Point(15, 38);
-            this.trackBarIntervalMouseJiggler.Name = "trackBarIntervalMouseJiggler";
-            this.trackBarIntervalMouseJiggler.Size = new System.Drawing.Size(186, 45);
-            this.trackBarIntervalMouseJiggler.TabIndex = 3;
-            this.trackBarIntervalMouseJiggler.TabStop = false;
-            this.trackBarIntervalMouseJiggler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseMove);
-            this.trackBarIntervalMouseJiggler.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseUp);
-            // 
-            // pboxWindowClose
-            // 
-            this.pboxWindowClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pboxWindowClose.BackColor = System.Drawing.SystemColors.Control;
-            this.pboxWindowClose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pboxWindowClose.Image = ((System.Drawing.Image)(resources.GetObject("pboxWindowClose.Image")));
-            this.pboxWindowClose.Location = new System.Drawing.Point(358, 2);
-            this.pboxWindowClose.Margin = new System.Windows.Forms.Padding(2);
-            this.pboxWindowClose.Name = "pboxWindowClose";
-            this.pboxWindowClose.Size = new System.Drawing.Size(25, 25);
-            this.pboxWindowClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pboxWindowClose.TabIndex = 4;
-            this.pboxWindowClose.TabStop = false;
-            this.pboxWindowClose.Click += new System.EventHandler(this.pboxWindowClose_Click);
-            // 
-            // panelGeneralSettings
-            // 
-            this.panelGeneralSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelGeneralSettings.Controls.Add(this.lblGeneralSettings);
-            this.panelGeneralSettings.Controls.Add(this.cbTopMost);
-            this.panelGeneralSettings.Controls.Add(this.cbShowInTaskbar);
-            this.panelGeneralSettings.Controls.Add(this.pboxWindowClose);
-            this.panelGeneralSettings.Location = new System.Drawing.Point(5, 5);
-            this.panelGeneralSettings.Name = "panelGeneralSettings";
-            this.panelGeneralSettings.Size = new System.Drawing.Size(387, 100);
-            this.panelGeneralSettings.TabIndex = 15;
-            // 
-            // lblGeneralSettings
-            // 
-            this.lblGeneralSettings.AutoSize = true;
-            this.lblGeneralSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGeneralSettings.ForeColor = System.Drawing.Color.White;
-            this.lblGeneralSettings.Location = new System.Drawing.Point(10, 10);
-            this.lblGeneralSettings.Name = "lblGeneralSettings";
-            this.lblGeneralSettings.Size = new System.Drawing.Size(178, 25);
-            this.lblGeneralSettings.TabIndex = 0;
-            this.lblGeneralSettings.Text = "General Settings:";
-            // 
-            // panelMouseJiggler
-            // 
-            this.panelMouseJiggler.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelMouseJiggler.Controls.Add(this.btnMouseJiggler);
-            this.panelMouseJiggler.Controls.Add(this.lblMouseJiggler);
-            this.panelMouseJiggler.Controls.Add(this.trackBarIntervalMouseJiggler);
-            this.panelMouseJiggler.Controls.Add(this.lblMouseJigglerDuration);
-            this.panelMouseJiggler.Controls.Add(this.lblHotkeyMouseJiggler);
-            this.panelMouseJiggler.Location = new System.Drawing.Point(5, 111);
-            this.panelMouseJiggler.Name = "panelMouseJiggler";
-            this.panelMouseJiggler.Size = new System.Drawing.Size(387, 100);
-            this.panelMouseJiggler.TabIndex = 16;
-            // 
-            // lblMouseJiggler
-            // 
-            this.lblMouseJiggler.AutoSize = true;
-            this.lblMouseJiggler.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMouseJiggler.ForeColor = System.Drawing.Color.White;
-            this.lblMouseJiggler.Location = new System.Drawing.Point(10, 10);
-            this.lblMouseJiggler.Name = "lblMouseJiggler";
-            this.lblMouseJiggler.Size = new System.Drawing.Size(147, 25);
-            this.lblMouseJiggler.TabIndex = 0;
-            this.lblMouseJiggler.Text = "MouseJiggler:";
+            this.btnColorAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnColorAutoClicker.BackColor = System.Drawing.SystemColors.Control;
+            this.btnColorAutoClicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnColorAutoClicker.Location = new System.Drawing.Point(330, 64);
+            this.btnColorAutoClicker.Name = "btnColorAutoClicker";
+            this.btnColorAutoClicker.Size = new System.Drawing.Size(65, 19);
+            this.btnColorAutoClicker.TabIndex = 12;
+            this.btnColorAutoClicker.UseVisualStyleBackColor = false;
             // 
             // panelMouseAutoClicker
             // 
+            this.panelMouseAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelMouseAutoClicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMouseAutoClicker.Controls.Add(this.lblMouseAutoClicker);
             this.panelMouseAutoClicker.Controls.Add(this.trackBarIntervalMouseAutoClicker);
             this.panelMouseAutoClicker.Controls.Add(this.lblHotkeyMouseAutoClicker);
             this.panelMouseAutoClicker.Controls.Add(this.lblMouseAutoClickerDuration);
             this.panelMouseAutoClicker.Controls.Add(this.btnMouseAutoClicker);
-            this.panelMouseAutoClicker.Location = new System.Drawing.Point(5, 217);
+            this.panelMouseAutoClicker.Location = new System.Drawing.Point(5, 215);
             this.panelMouseAutoClicker.Name = "panelMouseAutoClicker";
-            this.panelMouseAutoClicker.Size = new System.Drawing.Size(387, 100);
+            this.panelMouseAutoClicker.Size = new System.Drawing.Size(400, 100);
             this.panelMouseAutoClicker.TabIndex = 17;
             // 
             // lblMouseAutoClicker
@@ -251,37 +185,203 @@
             this.lblMouseAutoClicker.TabIndex = 0;
             this.lblMouseAutoClicker.Text = "MouseAutoClicker:";
             // 
+            // trackBarIntervalMouseAutoClicker
+            // 
+            this.trackBarIntervalMouseAutoClicker.Location = new System.Drawing.Point(14, 38);
+            this.trackBarIntervalMouseAutoClicker.Name = "trackBarIntervalMouseAutoClicker";
+            this.trackBarIntervalMouseAutoClicker.Size = new System.Drawing.Size(186, 45);
+            this.trackBarIntervalMouseAutoClicker.TabIndex = 13;
+            this.trackBarIntervalMouseAutoClicker.TabStop = false;
+            this.trackBarIntervalMouseAutoClicker.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseMove);
+            this.trackBarIntervalMouseAutoClicker.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseUp);
+            // 
+            // lblHotkeyMouseAutoClicker
+            // 
+            this.lblHotkeyMouseAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHotkeyMouseAutoClicker.AutoSize = true;
+            this.lblHotkeyMouseAutoClicker.BackColor = System.Drawing.Color.Black;
+            this.lblHotkeyMouseAutoClicker.ForeColor = System.Drawing.Color.White;
+            this.lblHotkeyMouseAutoClicker.Location = new System.Drawing.Point(274, 10);
+            this.lblHotkeyMouseAutoClicker.Name = "lblHotkeyMouseAutoClicker";
+            this.lblHotkeyMouseAutoClicker.Size = new System.Drawing.Size(121, 13);
+            this.lblHotkeyMouseAutoClicker.TabIndex = 11;
+            this.lblHotkeyMouseAutoClicker.Text = "HotKey: Cntrl + Shift + K";
+            // 
+            // lblMouseAutoClickerDuration
+            // 
+            this.lblMouseAutoClickerDuration.BackColor = System.Drawing.Color.Black;
+            this.lblMouseAutoClickerDuration.ForeColor = System.Drawing.Color.White;
+            this.lblMouseAutoClickerDuration.Location = new System.Drawing.Point(206, 38);
+            this.lblMouseAutoClickerDuration.Name = "lblMouseAutoClickerDuration";
+            this.lblMouseAutoClickerDuration.Size = new System.Drawing.Size(85, 45);
+            this.lblMouseAutoClickerDuration.TabIndex = 14;
+            this.lblMouseAutoClickerDuration.Text = "Clicks per Minute";
+            // 
+            // btnMouseAutoClicker
+            // 
+            this.btnMouseAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMouseAutoClicker.BackColor = System.Drawing.SystemColors.Control;
+            this.btnMouseAutoClicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMouseAutoClicker.Location = new System.Drawing.Point(330, 64);
+            this.btnMouseAutoClicker.Name = "btnMouseAutoClicker";
+            this.btnMouseAutoClicker.Size = new System.Drawing.Size(65, 19);
+            this.btnMouseAutoClicker.TabIndex = 12;
+            this.btnMouseAutoClicker.UseVisualStyleBackColor = false;
+            // 
+            // panelMouseJiggler
+            // 
+            this.panelMouseJiggler.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelMouseJiggler.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMouseJiggler.Controls.Add(this.btnMouseJiggler);
+            this.panelMouseJiggler.Controls.Add(this.lblMouseJiggler);
+            this.panelMouseJiggler.Controls.Add(this.trackBarIntervalMouseJiggler);
+            this.panelMouseJiggler.Controls.Add(this.lblMouseJigglerDuration);
+            this.panelMouseJiggler.Controls.Add(this.lblHotkeyMouseJiggler);
+            this.panelMouseJiggler.Location = new System.Drawing.Point(5, 110);
+            this.panelMouseJiggler.Name = "panelMouseJiggler";
+            this.panelMouseJiggler.Size = new System.Drawing.Size(400, 100);
+            this.panelMouseJiggler.TabIndex = 16;
+            // 
             // btnMouseJiggler
             // 
             this.btnMouseJiggler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMouseJiggler.BackColor = System.Drawing.SystemColors.Control;
             this.btnMouseJiggler.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMouseJiggler.Location = new System.Drawing.Point(317, 64);
+            this.btnMouseJiggler.Location = new System.Drawing.Point(330, 64);
             this.btnMouseJiggler.Name = "btnMouseJiggler";
             this.btnMouseJiggler.Size = new System.Drawing.Size(65, 19);
             this.btnMouseJiggler.TabIndex = 15;
             this.btnMouseJiggler.UseVisualStyleBackColor = false;
+            // 
+            // lblMouseJiggler
+            // 
+            this.lblMouseJiggler.AutoSize = true;
+            this.lblMouseJiggler.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMouseJiggler.ForeColor = System.Drawing.Color.White;
+            this.lblMouseJiggler.Location = new System.Drawing.Point(10, 10);
+            this.lblMouseJiggler.Name = "lblMouseJiggler";
+            this.lblMouseJiggler.Size = new System.Drawing.Size(147, 25);
+            this.lblMouseJiggler.TabIndex = 0;
+            this.lblMouseJiggler.Text = "MouseJiggler:";
+            // 
+            // trackBarIntervalMouseJiggler
+            // 
+            this.trackBarIntervalMouseJiggler.Location = new System.Drawing.Point(15, 38);
+            this.trackBarIntervalMouseJiggler.Name = "trackBarIntervalMouseJiggler";
+            this.trackBarIntervalMouseJiggler.Size = new System.Drawing.Size(186, 45);
+            this.trackBarIntervalMouseJiggler.TabIndex = 3;
+            this.trackBarIntervalMouseJiggler.TabStop = false;
+            this.trackBarIntervalMouseJiggler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseMove);
+            this.trackBarIntervalMouseJiggler.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseUp);
+            // 
+            // lblMouseJigglerDuration
+            // 
+            this.lblMouseJigglerDuration.BackColor = System.Drawing.Color.Black;
+            this.lblMouseJigglerDuration.ForeColor = System.Drawing.Color.White;
+            this.lblMouseJigglerDuration.Location = new System.Drawing.Point(207, 40);
+            this.lblMouseJigglerDuration.Name = "lblMouseJigglerDuration";
+            this.lblMouseJigglerDuration.Size = new System.Drawing.Size(85, 43);
+            this.lblMouseJigglerDuration.TabIndex = 5;
+            this.lblMouseJigglerDuration.Text = "Duration";
+            // 
+            // lblHotkeyMouseJiggler
+            // 
+            this.lblHotkeyMouseJiggler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblHotkeyMouseJiggler.AutoSize = true;
+            this.lblHotkeyMouseJiggler.BackColor = System.Drawing.Color.Black;
+            this.lblHotkeyMouseJiggler.ForeColor = System.Drawing.Color.White;
+            this.lblHotkeyMouseJiggler.Location = new System.Drawing.Point(276, 10);
+            this.lblHotkeyMouseJiggler.Name = "lblHotkeyMouseJiggler";
+            this.lblHotkeyMouseJiggler.Size = new System.Drawing.Size(119, 13);
+            this.lblHotkeyMouseJiggler.TabIndex = 10;
+            this.lblHotkeyMouseJiggler.Text = "HotKey: Cntrl + Shift + J";
+            // 
+            // panelGeneralSettings
+            // 
+            this.panelGeneralSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelGeneralSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelGeneralSettings.Controls.Add(this.lblGeneralSettings);
+            this.panelGeneralSettings.Controls.Add(this.cbTopMost);
+            this.panelGeneralSettings.Controls.Add(this.cbShowInTaskbar);
+            this.panelGeneralSettings.Controls.Add(this.pboxWindowClose);
+            this.panelGeneralSettings.Location = new System.Drawing.Point(5, 5);
+            this.panelGeneralSettings.Name = "panelGeneralSettings";
+            this.panelGeneralSettings.Size = new System.Drawing.Size(400, 100);
+            this.panelGeneralSettings.TabIndex = 15;
+            // 
+            // lblGeneralSettings
+            // 
+            this.lblGeneralSettings.AutoSize = true;
+            this.lblGeneralSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGeneralSettings.ForeColor = System.Drawing.Color.White;
+            this.lblGeneralSettings.Location = new System.Drawing.Point(10, 10);
+            this.lblGeneralSettings.Name = "lblGeneralSettings";
+            this.lblGeneralSettings.Size = new System.Drawing.Size(178, 25);
+            this.lblGeneralSettings.TabIndex = 0;
+            this.lblGeneralSettings.Text = "General Settings:";
+            // 
+            // pboxWindowClose
+            // 
+            this.pboxWindowClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pboxWindowClose.BackColor = System.Drawing.SystemColors.Control;
+            this.pboxWindowClose.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pboxWindowClose.Image = ((System.Drawing.Image)(resources.GetObject("pboxWindowClose.Image")));
+            this.pboxWindowClose.Location = new System.Drawing.Point(371, 2);
+            this.pboxWindowClose.Margin = new System.Windows.Forms.Padding(2);
+            this.pboxWindowClose.Name = "pboxWindowClose";
+            this.pboxWindowClose.Size = new System.Drawing.Size(25, 25);
+            this.pboxWindowClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pboxWindowClose.TabIndex = 4;
+            this.pboxWindowClose.TabStop = false;
+            this.pboxWindowClose.Click += new System.EventHandler(this.pboxWindowClose_Click);
+            // 
+            // btnColorFoundStatus
+            // 
+            this.btnColorFoundStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnColorFoundStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.btnColorFoundStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnColorFoundStatus.Location = new System.Drawing.Point(244, 64);
+            this.btnColorFoundStatus.Name = "btnColorFoundStatus";
+            this.btnColorFoundStatus.Size = new System.Drawing.Size(61, 19);
+            this.btnColorFoundStatus.TabIndex = 14;
+            this.btnColorFoundStatus.UseVisualStyleBackColor = false;
+            // 
+            // lblColorFound
+            // 
+            this.lblColorFound.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblColorFound.AutoSize = true;
+            this.lblColorFound.BackColor = System.Drawing.Color.Black;
+            this.lblColorFound.ForeColor = System.Drawing.Color.White;
+            this.lblColorFound.Location = new System.Drawing.Point(241, 48);
+            this.lblColorFound.Name = "lblColorFound";
+            this.lblColorFound.Size = new System.Drawing.Size(64, 13);
+            this.lblColorFound.TabIndex = 15;
+            this.lblColorFound.Text = "Color Found";
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlText;
-            this.ClientSize = new System.Drawing.Size(431, 427);
+            this.ClientSize = new System.Drawing.Size(420, 430);
             this.Controls.Add(this.dragPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Settings";
             this.Text = "Settings";
             this.dragPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseAutoClicker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseJiggler)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).EndInit();
-            this.panelGeneralSettings.ResumeLayout(false);
-            this.panelGeneralSettings.PerformLayout();
-            this.panelMouseJiggler.ResumeLayout(false);
-            this.panelMouseJiggler.PerformLayout();
+            this.panelColorAutoClicker.ResumeLayout(false);
+            this.panelColorAutoClicker.PerformLayout();
             this.panelMouseAutoClicker.ResumeLayout(false);
             this.panelMouseAutoClicker.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseAutoClicker)).EndInit();
+            this.panelMouseJiggler.ResumeLayout(false);
+            this.panelMouseJiggler.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarIntervalMouseJiggler)).EndInit();
+            this.panelGeneralSettings.ResumeLayout(false);
+            this.panelGeneralSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxWindowClose)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -306,5 +406,12 @@
         private System.Windows.Forms.Panel panelMouseAutoClicker;
         private System.Windows.Forms.Label lblMouseAutoClicker;
         private System.Windows.Forms.Button btnMouseJiggler;
+        private System.Windows.Forms.Panel panelColorAutoClicker;
+        private System.Windows.Forms.Label lblColorAutoClicker;
+        private System.Windows.Forms.Label lblHotkeyColorAutoClicker;
+        private System.Windows.Forms.Button btnColorAutoClicker;
+        private System.Windows.Forms.ComboBox cboxColor;
+        private System.Windows.Forms.Button btnColorFoundStatus;
+        private System.Windows.Forms.Label lblColorFound;
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Timers;
+using System.Threading;
 
 
 namespace MouseJiggler
@@ -14,23 +15,28 @@ namespace MouseJiggler
     public class ColorAutoClicker
     {
         private Color targetColor = Color.Red; // Beispiel-Ziel-Farbe
-        private bool isRunning = false;
+        private bool isColorAutoClickerRunning = false;
+        private Action<Color, bool> updateColorStatusButton;
 
-        public bool IsRunning => isRunning;
+        public bool IsColorAutoClickerRunning => isColorAutoClickerRunning;
 
+        public ColorAutoClicker(Action<Color, bool> updateColorStatusButton)
+        {
+            this.updateColorStatusButton = updateColorStatusButton;
+        }
         public ColorAutoClicker()
         {
             
         }
         public void Start()
         {
-            isRunning = true;
+            isColorAutoClickerRunning = true;
             CheckMouseColorAndClick();
         }
 
         public void Stop()
         {
-            isRunning = false;
+            isColorAutoClickerRunning = false;
         }
 
         public void SetTargetColor(Color color)
@@ -42,10 +48,18 @@ namespace MouseJiggler
         {
             Point cursorPosition = Cursor.Position;
             Color pixelColor = GetColorAt(cursorPosition);
+            bool isMouseOverTargetColor = pixelColor.ToArgb() == targetColor.ToArgb();
+            updateColorStatusButton?.Invoke(targetColor, isMouseOverTargetColor);
 
-            if (pixelColor.ToArgb() == targetColor.ToArgb())
+            if (isMouseOverTargetColor)
             {
                 PerformRightClick(cursorPosition);
+            }
+
+            // Starte erneut die Überprüfung in regelmäßigen Abständen, wenn der AutoClicker läuft
+            if (isColorAutoClickerRunning)
+            {
+                Task.Delay(100).ContinueWith(_ => CheckMouseColorAndClick());
             }
         }
 

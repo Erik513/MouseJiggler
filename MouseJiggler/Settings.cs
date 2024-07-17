@@ -21,6 +21,7 @@ namespace MouseJiggler
         private bool showInTaskbar;
         private TimeSpan startTime;
         private TimeSpan stopTime;
+        private ColorAutoClicker colorAutoClicker;
 
         private void pboxWindowClose_Click(object sender, EventArgs e)
         {
@@ -34,30 +35,65 @@ namespace MouseJiggler
             InitializeComponent();
             CenterToScreen();
             BringToFront();
+            //SetButtonColors();
             dragPanel.Dock = DockStyle.Fill;
-            DraggableControl draggable_DragPanel = new DraggableControl(dragPanel);
+            DraggableControl draggable_dragPanel = new DraggableControl(dragPanel);
             //General Settings
-            DraggableControl draggable_PanelGeneralSettings = new DraggableControl(panelGeneralSettings);
-            DraggableControl draggable_LblGeneralSettings = new DraggableControl(lblGeneralSettings);
-            DraggableControl draggable_CbTopMost = new DraggableControl(cbTopMost);
-            DraggableControl draggable_CbShowInTaskbar = new DraggableControl(cbShowInTaskbar);
-            //MouseJiggler
-            DraggableControl draggable_PanelMouseJiggler = new DraggableControl(panelMouseJiggler);
-            DraggableControl draggable_LblMouseJiggler = new DraggableControl(lblMouseJiggler);
-            DraggableControl draggable_LblMouseJigglerDuration = new DraggableControl(lblMouseJigglerDuration);
-            DraggableControl draggableLblHotkeyMouseJiggler = new DraggableControl(lblHotkeyMouseJiggler);
-            DraggableControl draggable_BtnMouseJiggler = new DraggableControl(btnMouseJiggler);
-            //MouseAutoClicker
-            DraggableControl draggable_PanelMouseAutoClicker = new DraggableControl(panelMouseAutoClicker);
-            DraggableControl draggable_LblMouseAutoClicker = new DraggableControl(lblMouseAutoClicker);
-            DraggableControl draggable_LblHotkeyMouseAutoClicker = new DraggableControl(lblHotkeyMouseAutoClicker);
-            DraggableControl draggable_BtnMouseAutoClicker = new DraggableControl(btnMouseAutoClicker);
-
+            DraggableControl draggable_panelGeneralSettings = new DraggableControl(panelGeneralSettings);
+            DraggableControl draggable_lblGeneralSettings = new DraggableControl(lblGeneralSettings);
+            DraggableControl draggable_cbTopMost = new DraggableControl(cbTopMost);
+            DraggableControl draggable_cbShowInTaskbar = new DraggableControl(cbShowInTaskbar);
 
             cbTopMost.CheckStateChanged += CbTopMost_CheckStateChanged;
             cbTopMost.Checked = topMostState;
             cbShowInTaskbar.CheckStateChanged += CbShowInTaskbar_CheckStateChanged;
             cbShowInTaskbar.Checked = showInTaskbar;
+            //MouseJiggler (trackbar nicht)
+            DraggableControl draggable_panelMouseJiggler = new DraggableControl(panelMouseJiggler);
+            DraggableControl draggable_lblMouseJiggler = new DraggableControl(lblMouseJiggler);
+            DraggableControl draggable_lblMouseJigglerDuration = new DraggableControl(lblMouseJigglerDuration);
+            DraggableControl draggable_lblHotkeyMouseJiggler = new DraggableControl(lblHotkeyMouseJiggler);
+            DraggableControl draggable_btnMouseJiggler = new DraggableControl(btnMouseJiggler);
+            //MouseAutoClicker (trackbar nicht)
+            DraggableControl draggable_panelMouseAutoClicker = new DraggableControl(panelMouseAutoClicker);
+            DraggableControl draggable_lblMouseAutoClicker = new DraggableControl(lblMouseAutoClicker);
+            DraggableControl draggable_lblHotkeyMouseAutoClicker = new DraggableControl(lblHotkeyMouseAutoClicker);
+            DraggableControl draggable_lblMouseAutoClickerDuration = new DraggableControl(lblMouseAutoClickerDuration);
+            DraggableControl draggable_btnMouseAutoClicker = new DraggableControl(btnMouseAutoClicker);
+            //ColorAutoClicker (combobox nicht)
+            DraggableControl draggable_panelColorAutoClicker = new DraggableControl(panelColorAutoClicker);
+            DraggableControl draggable_lblColorAutoClicker = new DraggableControl(lblColorAutoClicker);
+            DraggableControl draggable_lblHotkeyColorAutoClicker = new DraggableControl(lblHotkeyColorAutoClicker);
+            DraggableControl draggable_lblColorFound = new DraggableControl(lblColorFound);
+            DraggableControl draggable_btnColorFoundStatus = new DraggableControl(btnColorFoundStatus);
+            DraggableControl draggable_btnColorAutoClicker = new DraggableControl(btnColorAutoClicker);
+        }
+
+        private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedColor = cboxColor.SelectedItem.ToString();
+            Color color = Color.FromName(selectedColor);
+            if (selectedColor != null)
+            {
+                mainForm.SetColorAutoClickerTargetColor(color);
+            }
+        }
+        public void UpdateColorStatusButton(Color targetColor, bool isMouseOverTargetColor)
+        {
+            btnColorFoundStatus.BackColor = isMouseOverTargetColor ? Color.Green : Color.Red;
+        }
+
+        private void SetButtonColors()
+        {
+            btnMouseAutoClicker.BackColor = mainForm.IsMouseAutoClickerRunning ? Color.Green : Color.Red;
+            btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
+            //btnColorFoundStatus.BackColor = colorAutoClicker.CheckMouseColorAndClick() ? Color.Green : Color.Red;
+            btnColorAutoClicker.BackColor = mainForm.IsColorAutoClickerRunning ? Color.Green : Color.Red;
+        }
+        private void SetNotVisibleControls()
+        {
+            lblColorFound.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
+            btnColorFoundStatus.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
         }
 
         public Settings(MainForm form) : this()
@@ -83,12 +119,22 @@ namespace MouseJiggler
             trackBarIntervalMouseAutoClicker.Value = mainForm.GetAutoclickerInterval();
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(per Minute)";
 
-            UpdateAutoclickerButtonColor();
+            colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
+            cboxColor.Items.AddRange(new string[] { "Red", "Yellow", "Green", "Blue", "Pink", "Black", "Gray", "White" });
+            cboxColor.SelectedIndex = 0;
+            cboxColor.SelectedIndexChanged += CboxColor_SelectedIndexChanged;
+            SetButtonColors();
+            SetNotVisibleControls();
         }
-        public void UpdateAutoclickerButtonColor()
+        public void UpdateColorAutoClickerButtonColor()
+        {
+            btnColorAutoClicker.BackColor = mainForm.IsColorAutoClickerRunning ? Color.Green : Color.Red;
+            lblColorFound.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
+            btnColorFoundStatus.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
+        }
+        public void UpdateMouseAutoClickerButtonColor()
         {
             btnMouseAutoClicker.BackColor = mainForm.IsMouseAutoClickerRunning ? Color.Green : Color.Red;
-            btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
         }
         /// <summary>
         /// Depending on IsAutoclickerRunning
