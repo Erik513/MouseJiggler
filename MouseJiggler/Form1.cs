@@ -10,6 +10,7 @@ namespace MouseJiggler
     public partial class MainForm : Form
     {
         private Settings settingsForm;
+        private CustomCheckBox CustomCheckBox;
         private const int HOTKEY_ID_MOUSEJIGGLER = 1;
         private const int HOTKEY_ID_MOUSEAUTOCLICKER = 2;
         private const int HOTKEY_ID_COLORAUTOCLICKER = 3;

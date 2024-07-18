@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace MouseJiggler
     public partial class Settings : Form
     {
         private MainForm mainForm;
+        private CustomCheckBox customCheckBox;
         private bool topMostState;
         private bool showInTaskbar;
         private ColorAutoClicker colorAutoClicker;
@@ -66,9 +68,10 @@ namespace MouseJiggler
             new DraggableControl(lblHotkeyMouseAutoClicker);
             new DraggableControl(lblMouseAutoClickerDuration);
             new DraggableControl(btnMouseAutoClicker);
-            //ColorAutoClicker (combobox nicht)
+            //ColorAutoClicker (combobox und textbox nicht)
             new DraggableControl(panelColorAutoClicker);
             new DraggableControl(lblColorAutoClicker);
+            new DraggableControl(lblCustomColor);
             new DraggableControl(lblHotkeyColorAutoClicker);
             new DraggableControl(lblColorFound);
             new DraggableControl(btnColorFoundStatus);
@@ -94,6 +97,12 @@ namespace MouseJiggler
         private void InitializeColorAutoClickerSettings()
         {
             cboxColor.SelectedIndexChanged += CboxColor_SelectedIndexChanged;
+            lblCustomColor.Visible = false;
+            txtCustomColor.Visible = false;
+            txtCustomColor.Text = "#";
+            txtCustomColor.KeyPress += TxtCustomColor_KeyPress;
+            txtCustomColor.TextChanged += TxtCustomColor_TextChanged;
+            txtCustomColor.KeyDown += TxtCustomColor_KeyDown;
         }
         public Settings(MainForm form) : this()
         {
@@ -128,13 +137,13 @@ namespace MouseJiggler
             trackBarIntervalMouseAutoClicker.Maximum = 6000;
             trackBarIntervalMouseAutoClicker.TickFrequency = 1000;
             trackBarIntervalMouseAutoClicker.Value = mainForm.GetAutoclickerInterval();
-            lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(per Minute)";
+            lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(Per Minute)";
         }
 
         private void SetupColorAutoClicker()
         {
             colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
-            cboxColor.Items.AddRange(new string[] { "Red", "Yellow", "Green", "Blue", "Pink", "Black", "Gray", "White" });
+            cboxColor.Items.AddRange(new string[] { "Red", "Yellow", "Green", "Blue", "Pink", "Black", "Gray", "White", "Custom..." });
             cboxColor.SelectedIndex = 0;
             cboxColor.SelectedIndexChanged += CboxColor_SelectedIndexChanged;
         }
@@ -252,31 +261,74 @@ namespace MouseJiggler
         private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedColor = cboxColor.SelectedItem.ToString();
-            Color color = Color.FromName(selectedColor);
-            if (selectedColor != null)
+            if (selectedColor == "Custom...")
             {
+                lblCustomColor.Visible = true;
+                txtCustomColor.Visible = true;
+                txtCustomColor.Focus();
+            }
+            else
+            {
+                lblCustomColor.Visible = false;
+                txtCustomColor.Visible = false;
+                Color color = Color.FromName(selectedColor);
                 mainForm.SetColorAutoClickerTargetColor(color);
             }
         }
-        public class CustomCheckBox : CheckBox
+        private void TxtCustomColor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            protected override void OnPaint(PaintEventArgs pevent)
+            // Only allow valid hex characters
+            if (!IsValidHexChar(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
-                // Base drawing
-                base.OnPaint(pevent);
+                e.Handled = true;
+            }
+        }
 
-                // Check if the control is enabled
-                if (!this.Enabled)
+        private void TxtCustomColor_TextChanged(object sender, EventArgs e)
+        {
+            // Ensure the first character is always '#'
+            if (!txtCustomColor.Text.StartsWith("#"))
+            {
+                txtCustomColor.Text = "#" + txtCustomColor.Text.TrimStart('#');
+                txtCustomColor.SelectionStart = txtCustomColor.Text.Length; // Set cursor to end
+            }
+        }
+
+        private bool IsValidHexChar(char c)
+        {
+            return (c >= '0' && c <= '9') ||
+                   (c >= 'a' && c <= 'f') ||
+                   (c >= 'A' && c <= 'F');
+        }
+
+        private void TxtCustomColor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string hexColor = txtCustomColor.Text;
+                if (hexColor.Length == 7 && Regex.IsMatch(hexColor, @"^#[0-9A-Fa-f]{6}$"))
                 {
-                    // Determine the size of the checkbox itself
-                    Size checkBoxSize = CheckBoxRenderer.GetGlyphSize(pevent.Graphics, System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
-
-                    // Draw the checkbox
-                    CheckBoxRenderer.DrawCheckBox(pevent.Graphics, new Point(0, (this.Height - checkBoxSize.Height) / 2), System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedDisabled);
-
-                    // Draw the text next to the checkbox
-                    Rectangle textRect = new Rectangle(checkBoxSize.Width + 2, 0, this.Width - checkBoxSize.Width - 2, this.Height);
-                    TextRenderer.DrawText(pevent.Graphics, this.Text, this.Font, textRect, Color.Gray, TextFormatFlags.Left);
+                    try
+                    {
+                        Color color = ColorTranslator.FromHtml(hexColor);
+                        mainForm.SetColorAutoClickerTargetColor(color);
+                        // Add the custom color to the ComboBox and select it
+                        //if (!cboxColor.Items.Contains(hexColor))
+                        //{
+                        //    cboxColor.Items.Insert(cboxColor.Items.Count - 1, hexColor);
+                        //}
+                        cboxColor.SelectedItem = hexColor;
+                        txtCustomColor.Visible = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Invalid color code. Please enter a valid hex color code (e.g., #RRGGBB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCustomColor.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hex color code must be 6 characters long.");
                 }
             }
         }

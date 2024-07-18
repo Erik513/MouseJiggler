@@ -33,6 +33,8 @@
             this.cbShowInTaskbar = new CustomCheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
             this.panelColorAutoClicker = new System.Windows.Forms.Panel();
+            this.lblCustomColor = new System.Windows.Forms.Label();
+            this.txtCustomColor = new System.Windows.Forms.TextBox();
             this.lblColorFound = new System.Windows.Forms.Label();
             this.btnColorFoundStatus = new System.Windows.Forms.Button();
             this.cboxColor = new System.Windows.Forms.ComboBox();
@@ -107,6 +109,8 @@
             this.panelColorAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelColorAutoClicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelColorAutoClicker.Controls.Add(this.lblCustomColor);
+            this.panelColorAutoClicker.Controls.Add(this.txtCustomColor);
             this.panelColorAutoClicker.Controls.Add(this.lblColorFound);
             this.panelColorAutoClicker.Controls.Add(this.btnColorFoundStatus);
             this.panelColorAutoClicker.Controls.Add(this.cboxColor);
@@ -118,13 +122,33 @@
             this.panelColorAutoClicker.Size = new System.Drawing.Size(400, 100);
             this.panelColorAutoClicker.TabIndex = 18;
             // 
+            // lblCustomColor
+            // 
+            this.lblCustomColor.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblCustomColor.AutoSize = true;
+            this.lblCustomColor.BackColor = System.Drawing.Color.Black;
+            this.lblCustomColor.ForeColor = System.Drawing.Color.White;
+            this.lblCustomColor.Location = new System.Drawing.Point(172, 47);
+            this.lblCustomColor.Name = "lblCustomColor";
+            this.lblCustomColor.Size = new System.Drawing.Size(72, 13);
+            this.lblCustomColor.TabIndex = 17;
+            this.lblCustomColor.Text = "Custom Color:";
+            // 
+            // txtCustomColor
+            // 
+            this.txtCustomColor.Location = new System.Drawing.Point(175, 63);
+            this.txtCustomColor.MaxLength = 7;
+            this.txtCustomColor.Name = "txtCustomColor";
+            this.txtCustomColor.Size = new System.Drawing.Size(69, 20);
+            this.txtCustomColor.TabIndex = 16;
+            // 
             // lblColorFound
             // 
             this.lblColorFound.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblColorFound.AutoSize = true;
             this.lblColorFound.BackColor = System.Drawing.Color.Black;
             this.lblColorFound.ForeColor = System.Drawing.Color.White;
-            this.lblColorFound.Location = new System.Drawing.Point(191, 48);
+            this.lblColorFound.Location = new System.Drawing.Point(260, 48);
             this.lblColorFound.Name = "lblColorFound";
             this.lblColorFound.Size = new System.Drawing.Size(64, 13);
             this.lblColorFound.TabIndex = 15;
@@ -135,9 +159,9 @@
             this.btnColorFoundStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnColorFoundStatus.BackColor = System.Drawing.SystemColors.Control;
             this.btnColorFoundStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnColorFoundStatus.Location = new System.Drawing.Point(194, 64);
+            this.btnColorFoundStatus.Location = new System.Drawing.Point(259, 64);
             this.btnColorFoundStatus.Name = "btnColorFoundStatus";
-            this.btnColorFoundStatus.Size = new System.Drawing.Size(61, 19);
+            this.btnColorFoundStatus.Size = new System.Drawing.Size(65, 19);
             this.btnColorFoundStatus.TabIndex = 14;
             this.btnColorFoundStatus.TabStop = false;
             this.btnColorFoundStatus.UseVisualStyleBackColor = false;
@@ -147,9 +171,9 @@
             this.cboxColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboxColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxColor.FormattingEnabled = true;
-            this.cboxColor.Location = new System.Drawing.Point(15, 64);
+            this.cboxColor.Location = new System.Drawing.Point(14, 62);
             this.cboxColor.Name = "cboxColor";
-            this.cboxColor.Size = new System.Drawing.Size(173, 21);
+            this.cboxColor.Size = new System.Drawing.Size(155, 21);
             this.cboxColor.TabIndex = 13;
             this.cboxColor.TabStop = false;
             // 
@@ -345,11 +369,11 @@
             this.lblWarning.AutoSize = true;
             this.lblWarning.BackColor = System.Drawing.Color.Black;
             this.lblWarning.ForeColor = System.Drawing.Color.Red;
-            this.lblWarning.Location = new System.Drawing.Point(271, 10);
+            this.lblWarning.Location = new System.Drawing.Point(250, 10);
             this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(95, 13);
+            this.lblWarning.Size = new System.Drawing.Size(116, 13);
             this.lblWarning.TabIndex = 16;
-            this.lblWarning.Text = "Use On Own Risk!";
+            this.lblWarning.Text = "Use At Your Own Risk!";
             // 
             // lblGeneralSettings
             // 
@@ -430,5 +454,7 @@
         private System.Windows.Forms.Label lblWarning;
         private CustomCheckBox cbTopMost;
         private CustomCheckBox cbShowInTaskbar;
+        private System.Windows.Forms.Label lblCustomColor;
+        private System.Windows.Forms.TextBox txtCustomColor;
     }
 }
