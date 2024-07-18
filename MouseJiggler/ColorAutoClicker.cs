@@ -24,10 +24,6 @@ namespace MouseJiggler
         {
             this.updateColorStatusButton = updateColorStatusButton;
         }
-        public ColorAutoClicker()
-        {
-            
-        }
         public void Start()
         {
             isColorAutoClickerRunning = true;

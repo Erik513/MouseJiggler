@@ -215,8 +215,6 @@
             this.trackBarIntervalMouseAutoClicker.Size = new System.Drawing.Size(186, 45);
             this.trackBarIntervalMouseAutoClicker.TabIndex = 13;
             this.trackBarIntervalMouseAutoClicker.TabStop = false;
-            this.trackBarIntervalMouseAutoClicker.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseMove);
-            this.trackBarIntervalMouseAutoClicker.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarIntervalAutoclicker_MouseUp);
             // 
             // lblHotkeyMouseAutoClicker
             // 
@@ -295,8 +293,6 @@
             this.trackBarIntervalMouseJiggler.Size = new System.Drawing.Size(186, 45);
             this.trackBarIntervalMouseJiggler.TabIndex = 3;
             this.trackBarIntervalMouseJiggler.TabStop = false;
-            this.trackBarIntervalMouseJiggler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseMove);
-            this.trackBarIntervalMouseJiggler.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarInterval_MouseUp);
             // 
             // lblMouseJigglerDuration
             // 

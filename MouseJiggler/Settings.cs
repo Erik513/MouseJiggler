@@ -35,80 +35,108 @@ namespace MouseJiggler
             InitializeComponent();
             CenterToScreen();
             BringToFront();
-            //SetButtonColors();
-            dragPanel.Dock = DockStyle.Fill;
-            DraggableControl draggable_dragPanel = new DraggableControl(dragPanel);
-            //General Settings
-            DraggableControl draggable_panelGeneralSettings = new DraggableControl(panelGeneralSettings);
-            DraggableControl draggable_lblGeneralSettings = new DraggableControl(lblGeneralSettings);
-            DraggableControl draggable_cbTopMost = new DraggableControl(cbTopMost);
-            DraggableControl draggable_cbShowInTaskbar = new DraggableControl(cbShowInTaskbar);
+            SetupDragControls();
+            InitializeGeneralSettings();
+            InitializeMouseJigglerSettings();
+            InitializeMouseAutoClickerSettings();
+            InitializeColorAutoClickerSettings();
 
-            cbTopMost.CheckStateChanged += CbTopMost_CheckStateChanged;
             cbTopMost.Checked = topMostState;
-            cbShowInTaskbar.CheckStateChanged += CbShowInTaskbar_CheckStateChanged;
             cbShowInTaskbar.Checked = showInTaskbar;
-            //MouseJiggler (trackbar nicht)
-            DraggableControl draggable_panelMouseJiggler = new DraggableControl(panelMouseJiggler);
-            DraggableControl draggable_lblMouseJiggler = new DraggableControl(lblMouseJiggler);
-            DraggableControl draggable_lblMouseJigglerDuration = new DraggableControl(lblMouseJigglerDuration);
-            DraggableControl draggable_lblHotkeyMouseJiggler = new DraggableControl(lblHotkeyMouseJiggler);
-            DraggableControl draggable_btnMouseJiggler = new DraggableControl(btnMouseJiggler);
-            //MouseAutoClicker (trackbar nicht)
-            DraggableControl draggable_panelMouseAutoClicker = new DraggableControl(panelMouseAutoClicker);
-            DraggableControl draggable_lblMouseAutoClicker = new DraggableControl(lblMouseAutoClicker);
-            DraggableControl draggable_lblHotkeyMouseAutoClicker = new DraggableControl(lblHotkeyMouseAutoClicker);
-            DraggableControl draggable_lblMouseAutoClickerDuration = new DraggableControl(lblMouseAutoClickerDuration);
-            DraggableControl draggable_btnMouseAutoClicker = new DraggableControl(btnMouseAutoClicker);
-            //ColorAutoClicker (combobox nicht)
-            DraggableControl draggable_panelColorAutoClicker = new DraggableControl(panelColorAutoClicker);
-            DraggableControl draggable_lblColorAutoClicker = new DraggableControl(lblColorAutoClicker);
-            DraggableControl draggable_lblHotkeyColorAutoClicker = new DraggableControl(lblHotkeyColorAutoClicker);
-            DraggableControl draggable_lblColorFound = new DraggableControl(lblColorFound);
-            DraggableControl draggable_btnColorFoundStatus = new DraggableControl(btnColorFoundStatus);
-            DraggableControl draggable_btnColorAutoClicker = new DraggableControl(btnColorAutoClicker);
         }
 
-        private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
+        private void SetupDragControls()
         {
-            string selectedColor = cboxColor.SelectedItem.ToString();
-            Color color = Color.FromName(selectedColor);
-            if (selectedColor != null)
-            {
-                mainForm.SetColorAutoClickerTargetColor(color);
-            }
+            dragPanel.Dock = DockStyle.Fill;
+            new DraggableControl(dragPanel);
+            //General
+            new DraggableControl(panelGeneralSettings);
+            new DraggableControl(lblGeneralSettings);
+            new DraggableControl(cbTopMost);
+            new DraggableControl(cbShowInTaskbar);
+            //MouseJiggler (trackbar nicht)
+            new DraggableControl(panelMouseJiggler);
+            new DraggableControl(lblMouseJiggler);
+            new DraggableControl(lblMouseJigglerDuration);
+            new DraggableControl(lblHotkeyMouseJiggler);
+            new DraggableControl(btnMouseJiggler);
+            //MouseAutoClicker (trackbar nicht)
+            new DraggableControl(panelMouseAutoClicker);
+            new DraggableControl(lblMouseAutoClicker);
+            new DraggableControl(lblHotkeyMouseAutoClicker);
+            new DraggableControl(lblMouseAutoClickerDuration);
+            new DraggableControl(btnMouseAutoClicker);
+            //ColorAutoClicker (combobox nicht)
+            new DraggableControl(panelColorAutoClicker);
+            new DraggableControl(lblColorAutoClicker);
+            new DraggableControl(lblHotkeyColorAutoClicker);
+            new DraggableControl(lblColorFound);
+            new DraggableControl(btnColorFoundStatus);
+            new DraggableControl(btnColorAutoClicker);
+        }
+        private void InitializeGeneralSettings()
+        {
+            cbTopMost.CheckStateChanged += CbTopMost_CheckStateChanged;
+            cbShowInTaskbar.CheckStateChanged += CbShowInTaskbar_CheckStateChanged;
+        }
+        private void InitializeMouseJigglerSettings()
+        {
+            trackBarIntervalMouseJiggler.MouseMove += TrackBarInterval_MouseMove;
+            trackBarIntervalMouseJiggler.MouseUp += TrackBarInterval_MouseUp;
         }
 
+        private void InitializeMouseAutoClickerSettings()
+        {
+            trackBarIntervalMouseAutoClicker.MouseMove += TrackBarIntervalAutoclicker_MouseMove;
+            trackBarIntervalMouseAutoClicker.MouseUp += TrackBarIntervalAutoclicker_MouseUp;
+        }
 
+        private void InitializeColorAutoClickerSettings()
+        {
+            cboxColor.SelectedIndexChanged += CboxColor_SelectedIndexChanged;
+        }
         public Settings(MainForm form) : this()
         {
             mainForm = form;
             this.KeyPreview = true;
-            //TopMost
-            cbTopMost.Checked = form.TopMost;
-            topMostState = form.TopMost;
-            //ShowInTaskbar
-            cbShowInTaskbar.Checked = form.ShowInTaskbar;
-            showInTaskbar = form.ShowInTaskbar;
-            //TrackbarIntervalMouseJiggler
-            trackBarIntervalMouseJiggler.Minimum = 1; // Minimum 0,1 Sekunden
-            trackBarIntervalMouseJiggler.Maximum = 600; // Maximum 60 Sekunden
+            InitializeMainFormSettings();
+        }
+
+        private void InitializeMainFormSettings()
+        {
+            cbTopMost.Checked = mainForm.TopMost;
+            topMostState = mainForm.TopMost;
+
+            cbShowInTaskbar.Checked = mainForm.ShowInTaskbar;
+            showInTaskbar = mainForm.ShowInTaskbar;
+
+            SetupTrackBars();
+            SetupColorAutoClicker();
+            SetButtonColors();
+            SetNotVisibleControls();
+        }
+
+        private void SetupTrackBars()
+        {
+            trackBarIntervalMouseJiggler.Minimum = 1;
+            trackBarIntervalMouseJiggler.Maximum = 600;
             trackBarIntervalMouseJiggler.TickFrequency = 100;
             trackBarIntervalMouseJiggler.Value = mainForm.GetMouseJigglerInterval() / 100;
             lblMouseJigglerDuration.Text = $"Duration: \nevery {trackBarIntervalMouseJiggler.Value / 10.0} \nSecond(s)";
-            //TrackbarIntervalAutoclicker
-            trackBarIntervalMouseAutoClicker.Minimum = 1; // 1 Click per Minute
-            trackBarIntervalMouseAutoClicker.Maximum = 6000; // 6000 Clicks per Minute
+
+            trackBarIntervalMouseAutoClicker.Minimum = 1;
+            trackBarIntervalMouseAutoClicker.Maximum = 6000;
             trackBarIntervalMouseAutoClicker.TickFrequency = 1000;
             trackBarIntervalMouseAutoClicker.Value = mainForm.GetAutoclickerInterval();
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(per Minute)";
+        }
 
+        private void SetupColorAutoClicker()
+        {
             colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
             cboxColor.Items.AddRange(new string[] { "Red", "Yellow", "Green", "Blue", "Pink", "Black", "Gray", "White" });
             cboxColor.SelectedIndex = 0;
             cboxColor.SelectedIndexChanged += CboxColor_SelectedIndexChanged;
-            SetButtonColors();
-            SetNotVisibleControls();
         }
         private void SetButtonColors()
         {
@@ -121,6 +149,7 @@ namespace MouseJiggler
             lblColorFound.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
             btnColorFoundStatus.Visible = mainForm.IsColorAutoClickerRunning ? true : false;
         }
+
         //UPDATE
         public void UpdateMouseAutoClickerButtonColor()
         {
@@ -136,39 +165,55 @@ namespace MouseJiggler
         {
             btnColorFoundStatus.BackColor = isMouseOverTargetColor ? Color.Green : Color.Red;
         }
+
         /// <summary>
         /// Depending on IsJiggling
         /// </summary>
         public void UpdateSettingsOnIsJiggling_Enabled()
         {
-            cbTopMost.Enabled = mainForm.IsJiggling ? false : true;
-            cbShowInTaskbar.Enabled = mainForm.IsJiggling ? false : true;
-            trackBarIntervalMouseJiggler.Enabled = mainForm.IsJiggling ? false : true;
-            trackBarIntervalMouseAutoClicker.Enabled = mainForm.IsJiggling ? false : true;
-            pboxWindowClose.Enabled = mainForm.IsJiggling ? false : true;
+            bool isEnabled = !mainForm.IsJiggling;
+
+            cbTopMost.Enabled = isEnabled;
+            cbShowInTaskbar.Enabled = isEnabled;
+            trackBarIntervalMouseJiggler.Enabled = isEnabled;
+            trackBarIntervalMouseAutoClicker.Enabled = isEnabled;
+
             btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
+
+            cbTopMost.ForeColor = isEnabled ? Color.White : Color.White;
+            cbShowInTaskbar.ForeColor = isEnabled ? Color.White : Color.White;
         }
         /// <summary>
         /// Depending on IsAutoclickerRunning
         /// </summary>
-        public void UpdateSettingsOnIsAutoclickerRunning_Enabled()
+        public void UpdateSettingsOnIsAutoClickerRunning_Enabled()
         {
-            cbTopMost.Enabled = mainForm.IsMouseAutoClickerRunning ? false : true;
-            cbShowInTaskbar.Enabled = mainForm.IsMouseAutoClickerRunning ? false : true;
-            trackBarIntervalMouseJiggler.Enabled = mainForm.IsMouseAutoClickerRunning ? false : true;
-            trackBarIntervalMouseAutoClicker.Enabled = mainForm.IsMouseAutoClickerRunning ? false : true;
-            pboxWindowClose.Enabled = mainForm.IsMouseAutoClickerRunning ? false : true;
+            bool isEnabled = !mainForm.IsMouseAutoClickerRunning;
+
+            cbTopMost.Enabled = isEnabled;
+            cbShowInTaskbar.Enabled = isEnabled;
+            trackBarIntervalMouseJiggler.Enabled = isEnabled;
+            trackBarIntervalMouseAutoClicker.Enabled = isEnabled;
+            pboxWindowClose.Enabled = isEnabled;
+
+            cbTopMost.ForeColor = isEnabled ? Color.White : Color.White;
+            cbShowInTaskbar.ForeColor = isEnabled ? Color.White : Color.White;
         }
         /// <summary>
-        /// Depending on IsJiggling
+        /// Depending on IsColorAutoClickerRunning
         /// </summary>
         public void UpdateSettingsOnIsColorAutoClickerRunning_Enabled()
         {
-            cbTopMost.Enabled = mainForm.IsJiggling ? false : true;
-            cbShowInTaskbar.Enabled = mainForm.IsJiggling ? false : true;
-            trackBarIntervalMouseJiggler.Enabled = mainForm.IsJiggling ? false : true;
-            trackBarIntervalMouseAutoClicker.Enabled = mainForm.IsJiggling ? false : true;
-            pboxWindowClose.Enabled = mainForm.IsColorAutoClickerRunning ? false : true;
+            bool isEnabled = !mainForm.IsColorAutoClickerRunning;
+
+            cbTopMost.Enabled = isEnabled;
+            cbShowInTaskbar.Enabled = isEnabled;
+            trackBarIntervalMouseJiggler.Enabled = isEnabled;
+            trackBarIntervalMouseAutoClicker.Enabled = isEnabled;
+            pboxWindowClose.Enabled = isEnabled;
+
+            cbTopMost.ForeColor = isEnabled ? Color.White : Color.White;
+            cbShowInTaskbar.ForeColor = isEnabled ? Color.White : Color.White;
         }
 
         private void CbTopMost_CheckStateChanged(object sender, EventArgs e)
@@ -180,6 +225,7 @@ namespace MouseJiggler
                 this.TopMost = true;
             }
         }
+
         private void CbShowInTaskbar_CheckStateChanged(object sender, EventArgs e)
         {
             if (mainForm != null)
@@ -190,25 +236,36 @@ namespace MouseJiggler
             }
         }
 
-        private void trackBarInterval_MouseMove(object sender, MouseEventArgs e)
+        private void TrackBarInterval_MouseMove(object sender, MouseEventArgs e)
         {
             lblMouseJigglerDuration.Text = $"Duration: \nevery {trackBarIntervalMouseJiggler.Value / 10.0} \nSecond(s)";
         }
-        private void trackBarInterval_MouseUp(object sender, MouseEventArgs e)
+
+        private void TrackBarInterval_MouseUp(object sender, MouseEventArgs e)
         {
-            int interval = (int)(trackBarIntervalMouseJiggler.Value * 100); // Wert in 100 Millisekunden
-            mainForm.SetMouseJigglerrInterval(interval);
+            int interval = (int)(trackBarIntervalMouseJiggler.Value * 100);
+            mainForm.SetMouseJigglerInterval(interval);
         }
 
-        private void trackBarIntervalAutoclicker_MouseMove(object sender, MouseEventArgs e)
+        private void TrackBarIntervalAutoclicker_MouseMove(object sender, MouseEventArgs e)
         {
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(per Minute)";
         }
 
-        private void trackBarIntervalAutoclicker_MouseUp(object sender, MouseEventArgs e)
+        private void TrackBarIntervalAutoclicker_MouseUp(object sender, MouseEventArgs e)
         {
             int interval = 6000 / trackBarIntervalMouseAutoClicker.Value;
             mainForm.SetAutoclickerInterval(interval);
+        }
+
+        private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedColor = cboxColor.SelectedItem.ToString();
+            Color color = Color.FromName(selectedColor);
+            if (selectedColor != null)
+            {
+                mainForm.SetColorAutoClickerTargetColor(color);
+            }
         }
     }
 }

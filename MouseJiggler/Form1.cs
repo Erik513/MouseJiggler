@@ -10,17 +10,15 @@ namespace MouseJiggler
     public partial class MainForm : Form
     {
         private Settings settingsForm;
+        private const int HOTKEY_ID_MOUSEJIGGLER = 1;
+        private const int HOTKEY_ID_MOUSEAUTOCLICKER = 2;
+        private const int HOTKEY_ID_COLORAUTOCLICKER = 3;
 
         public MouseJiggler timerMouseJiggler = null;
-        private const int HOTKEY_ID_MOUSEJIGGLER = 1;
-
         public MouseAutoClicker mouseAutoClicker = null;
-        private const int HOTKEY_ID_MOUSEAUTOCLICKER = 2;
+        public ColorAutoClicker colorAutoClicker = null;
+
         private bool isMouseAutoClickerRunning = false;
-
-
-        public ColorAutoClicker colorAutoClicker;
-        private const int HOTKEY_ID_COLORAUTOCLICKER = 3;
         private bool isColorAutoClickerRunning = false;
 
         [DllImport("user32.dll")]
@@ -42,13 +40,22 @@ namespace MouseJiggler
         {
             InitializeComponent();
             CenterToScreen();
+            InitializeComponents();
+            RegisterHotKeys();
+        }
+
+        private void InitializeComponents()
+        {
             DraggableControl draggablePanel = new DraggableControl(dragPanel);
             btnStartStop.BackColor = Color.Red;
 
             timerMouseJiggler = new MouseJiggler();
             mouseAutoClicker = new MouseAutoClicker();
             colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
+        }
 
+        private void RegisterHotKeys()
+        {
             RegisterHotKey(this.Handle, HOTKEY_ID_MOUSEJIGGLER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.J);
             RegisterHotKey(this.Handle, HOTKEY_ID_MOUSEAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.K);
             RegisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.L);
@@ -60,22 +67,31 @@ namespace MouseJiggler
             if (m.Msg == WM_HOTKEY)
             {
                 int id = m.WParam.ToInt32();
-                if (id == HOTKEY_ID_MOUSEJIGGLER)
-                {
-                    if (!isMouseAutoClickerRunning && !isColorAutoClickerRunning) StartStopMouseJiggler();
-                }
-                else if (id == HOTKEY_ID_MOUSEAUTOCLICKER)
-                {
-                    if (settingsForm != null && !IsJiggling && !isColorAutoClickerRunning) StartStopMouseAutoClicker();
-                }
-                else if (id == HOTKEY_ID_COLORAUTOCLICKER)
-                {
-                    if (settingsForm != null && !IsJiggling && !isMouseAutoClickerRunning) StartStopColorAutoClicker();
-                }
+                HandleHotKey(id);
             }
 
             base.WndProc(ref m);
         }
+
+        private void HandleHotKey(int id)
+        {
+            if (id == HOTKEY_ID_MOUSEJIGGLER)
+            {
+                if (!isMouseAutoClickerRunning && !isColorAutoClickerRunning)
+                    StartStopMouseJiggler();
+            }
+            else if (id == HOTKEY_ID_MOUSEAUTOCLICKER)
+            {
+                if (settingsForm != null && !IsJiggling && !isColorAutoClickerRunning)
+                    StartStopMouseAutoClicker();
+            }
+            else if (id == HOTKEY_ID_COLORAUTOCLICKER)
+            {
+                if (settingsForm != null && !IsJiggling && !isMouseAutoClickerRunning)
+                    StartStopColorAutoClicker();
+            }
+        }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             UnregisterHotKey(this.Handle, HOTKEY_ID_MOUSEJIGGLER);
@@ -121,11 +137,11 @@ namespace MouseJiggler
         }
 
         //MouseJiggler
-        public void StartStopMouseJiggler()
+        private void StartStopMouseJiggler()
         {
             timerMouseJiggler.StartStop();
             UpdateStartStopButtonColor();
-            if (settingsForm != null) settingsForm.UpdateSettingsOnIsJiggling_Enabled();
+            settingsForm?.UpdateSettingsOnIsJiggling_Enabled();
         }
         public bool IsJiggling => timerMouseJiggler.IsJiggling;
         public void UpdateStartStopButtonColor()
@@ -137,7 +153,7 @@ namespace MouseJiggler
             btnStartStop.Enabled = !IsMouseAutoClickerRunning && !IsColorAutoClickerRunning;
         }
 
-        public void SetMouseJigglerrInterval(int interval)
+        public void SetMouseJigglerInterval(int interval)
         {
             timerMouseJiggler.SetTimerInterval(interval);
         }
@@ -160,11 +176,8 @@ namespace MouseJiggler
                 isMouseAutoClickerRunning = true;
             }
             BtnStartStop_Enabled();
-            if (settingsForm != null)
-            {
-                settingsForm.UpdateMouseAutoClickerButtonColor();
-                settingsForm.UpdateSettingsOnIsAutoclickerRunning_Enabled();
-            }
+            settingsForm?.UpdateMouseAutoClickerButtonColor();
+            settingsForm?.UpdateSettingsOnIsAutoClickerRunning_Enabled();
         }
         public bool IsMouseAutoClickerRunning => isMouseAutoClickerRunning;
         
@@ -177,22 +190,22 @@ namespace MouseJiggler
             return mouseAutoClicker.GetAutoclickerInterval();
         }
         //ColorAutoClicker
-        public void StartStopColorAutoClicker()
+        private void StartStopColorAutoClicker()
         {
-            if (colorAutoClicker.IsColorAutoClickerRunning)
+            if (isColorAutoClickerRunning)
             {
                 colorAutoClicker.Stop();
+                isColorAutoClickerRunning = false;
             }
             else
             {
                 if (IsJiggling) StartStopMouseJiggler();
                 colorAutoClicker.Start();
+                isColorAutoClickerRunning = true;
             }
             BtnStartStop_Enabled();
-            if (settingsForm != null)
-            {
-                settingsForm.UpdateColorAutoClickerButtonColor();
-            }
+            settingsForm?.UpdateColorAutoClickerButtonColor();
+            settingsForm?.UpdateSettingsOnIsColorAutoClickerRunning_Enabled();
         }
         public bool IsColorAutoClickerRunning => colorAutoClicker.IsColorAutoClickerRunning;
 
@@ -202,10 +215,7 @@ namespace MouseJiggler
         }
         private void UpdateColorStatusButton(Color targetColor, bool isMouseOverTargetColor)
         {
-            if (settingsForm != null)
-            {
-                settingsForm.UpdateColorStatusButton(targetColor, isMouseOverTargetColor);
-            }
+            settingsForm?.UpdateColorStatusButton(targetColor, isMouseOverTargetColor);
         }
     }
 }
