@@ -19,8 +19,6 @@ namespace MouseJiggler
         private MainForm mainForm;
         private bool topMostState;
         private bool showInTaskbar;
-        private TimeSpan startTime;
-        private TimeSpan stopTime;
         private ColorAutoClicker colorAutoClicker;
 
         private void pboxWindowClose_Click(object sender, EventArgs e)
@@ -35,6 +33,7 @@ namespace MouseJiggler
             InitializeComponent();
             CenterToScreen();
             BringToFront();
+            this.KeyPreview = true;
             SetupDragControls();
             InitializeGeneralSettings();
             InitializeMouseJigglerSettings();
@@ -52,6 +51,7 @@ namespace MouseJiggler
             //General
             new DraggableControl(panelGeneralSettings);
             new DraggableControl(lblGeneralSettings);
+            new DraggableControl(lblWarning);
             new DraggableControl(cbTopMost);
             new DraggableControl(cbShowInTaskbar);
             //MouseJiggler (trackbar nicht)
@@ -179,9 +179,6 @@ namespace MouseJiggler
             trackBarIntervalMouseAutoClicker.Enabled = isEnabled;
 
             btnMouseJiggler.BackColor = mainForm.IsJiggling ? Color.Green : Color.Red;
-
-            cbTopMost.ForeColor = isEnabled ? Color.White : Color.White;
-            cbShowInTaskbar.ForeColor = isEnabled ? Color.White : Color.White;
         }
         /// <summary>
         /// Depending on IsAutoclickerRunning
@@ -195,9 +192,6 @@ namespace MouseJiggler
             trackBarIntervalMouseJiggler.Enabled = isEnabled;
             trackBarIntervalMouseAutoClicker.Enabled = isEnabled;
             pboxWindowClose.Enabled = isEnabled;
-
-            cbTopMost.ForeColor = isEnabled ? Color.White : Color.White;
-            cbShowInTaskbar.ForeColor = isEnabled ? Color.White : Color.White;
         }
         /// <summary>
         /// Depending on IsColorAutoClickerRunning
@@ -211,9 +205,6 @@ namespace MouseJiggler
             trackBarIntervalMouseJiggler.Enabled = isEnabled;
             trackBarIntervalMouseAutoClicker.Enabled = isEnabled;
             pboxWindowClose.Enabled = isEnabled;
-
-            cbTopMost.ForeColor = isEnabled ? Color.White : Color.White;
-            cbShowInTaskbar.ForeColor = isEnabled ? Color.White : Color.White;
         }
 
         private void CbTopMost_CheckStateChanged(object sender, EventArgs e)
@@ -265,6 +256,28 @@ namespace MouseJiggler
             if (selectedColor != null)
             {
                 mainForm.SetColorAutoClickerTargetColor(color);
+            }
+        }
+        public class CustomCheckBox : CheckBox
+        {
+            protected override void OnPaint(PaintEventArgs pevent)
+            {
+                // Base drawing
+                base.OnPaint(pevent);
+
+                // Check if the control is enabled
+                if (!this.Enabled)
+                {
+                    // Determine the size of the checkbox itself
+                    Size checkBoxSize = CheckBoxRenderer.GetGlyphSize(pevent.Graphics, System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
+
+                    // Draw the checkbox
+                    CheckBoxRenderer.DrawCheckBox(pevent.Graphics, new Point(0, (this.Height - checkBoxSize.Height) / 2), System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedDisabled);
+
+                    // Draw the text next to the checkbox
+                    Rectangle textRect = new Rectangle(checkBoxSize.Width + 2, 0, this.Width - checkBoxSize.Width - 2, this.Height);
+                    TextRenderer.DrawText(pevent.Graphics, this.Text, this.Font, textRect, Color.Gray, TextFormatFlags.Left);
+                }
             }
         }
     }

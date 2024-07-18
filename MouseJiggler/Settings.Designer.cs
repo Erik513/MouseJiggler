@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
-            this.cbTopMost = new System.Windows.Forms.CheckBox();
-            this.cbShowInTaskbar = new System.Windows.Forms.CheckBox();
+            this.cbTopMost = new CustomCheckBox();
+            this.cbShowInTaskbar = new CustomCheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
             this.panelColorAutoClicker = new System.Windows.Forms.Panel();
             this.lblColorFound = new System.Windows.Forms.Label();
@@ -52,6 +52,7 @@
             this.lblMouseJigglerDuration = new System.Windows.Forms.Label();
             this.lblHotkeyMouseJiggler = new System.Windows.Forms.Label();
             this.panelGeneralSettings = new System.Windows.Forms.Panel();
+            this.lblWarning = new System.Windows.Forms.Label();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
             this.dragPanel.SuspendLayout();
@@ -72,6 +73,7 @@
             this.cbTopMost.Name = "cbTopMost";
             this.cbTopMost.Size = new System.Drawing.Size(98, 17);
             this.cbTopMost.TabIndex = 1;
+            this.cbTopMost.TabStop = false;
             this.cbTopMost.Text = "Always On Top";
             this.cbTopMost.UseVisualStyleBackColor = true;
             // 
@@ -83,6 +85,7 @@
             this.cbShowInTaskbar.Name = "cbShowInTaskbar";
             this.cbShowInTaskbar.Size = new System.Drawing.Size(107, 17);
             this.cbShowInTaskbar.TabIndex = 2;
+            this.cbShowInTaskbar.TabStop = false;
             this.cbShowInTaskbar.Text = "Show In Taskbar";
             this.cbShowInTaskbar.UseVisualStyleBackColor = true;
             // 
@@ -136,6 +139,7 @@
             this.btnColorFoundStatus.Name = "btnColorFoundStatus";
             this.btnColorFoundStatus.Size = new System.Drawing.Size(61, 19);
             this.btnColorFoundStatus.TabIndex = 14;
+            this.btnColorFoundStatus.TabStop = false;
             this.btnColorFoundStatus.UseVisualStyleBackColor = false;
             // 
             // cboxColor
@@ -147,6 +151,7 @@
             this.cboxColor.Name = "cboxColor";
             this.cboxColor.Size = new System.Drawing.Size(173, 21);
             this.cboxColor.TabIndex = 13;
+            this.cboxColor.TabStop = false;
             // 
             // lblColorAutoClicker
             // 
@@ -180,6 +185,7 @@
             this.btnColorAutoClicker.Name = "btnColorAutoClicker";
             this.btnColorAutoClicker.Size = new System.Drawing.Size(65, 19);
             this.btnColorAutoClicker.TabIndex = 12;
+            this.btnColorAutoClicker.TabStop = false;
             this.btnColorAutoClicker.UseVisualStyleBackColor = false;
             // 
             // panelMouseAutoClicker
@@ -247,6 +253,7 @@
             this.btnMouseAutoClicker.Name = "btnMouseAutoClicker";
             this.btnMouseAutoClicker.Size = new System.Drawing.Size(65, 19);
             this.btnMouseAutoClicker.TabIndex = 12;
+            this.btnMouseAutoClicker.TabStop = false;
             this.btnMouseAutoClicker.UseVisualStyleBackColor = false;
             // 
             // panelMouseJiggler
@@ -273,6 +280,7 @@
             this.btnMouseJiggler.Name = "btnMouseJiggler";
             this.btnMouseJiggler.Size = new System.Drawing.Size(65, 19);
             this.btnMouseJiggler.TabIndex = 15;
+            this.btnMouseJiggler.TabStop = false;
             this.btnMouseJiggler.UseVisualStyleBackColor = false;
             // 
             // lblMouseJiggler
@@ -321,6 +329,7 @@
             this.panelGeneralSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelGeneralSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelGeneralSettings.Controls.Add(this.lblWarning);
             this.panelGeneralSettings.Controls.Add(this.lblGeneralSettings);
             this.panelGeneralSettings.Controls.Add(this.cbTopMost);
             this.panelGeneralSettings.Controls.Add(this.cbShowInTaskbar);
@@ -329,6 +338,18 @@
             this.panelGeneralSettings.Name = "panelGeneralSettings";
             this.panelGeneralSettings.Size = new System.Drawing.Size(400, 100);
             this.panelGeneralSettings.TabIndex = 15;
+            // 
+            // lblWarning
+            // 
+            this.lblWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblWarning.AutoSize = true;
+            this.lblWarning.BackColor = System.Drawing.Color.Black;
+            this.lblWarning.ForeColor = System.Drawing.Color.Red;
+            this.lblWarning.Location = new System.Drawing.Point(271, 10);
+            this.lblWarning.Name = "lblWarning";
+            this.lblWarning.Size = new System.Drawing.Size(95, 13);
+            this.lblWarning.TabIndex = 16;
+            this.lblWarning.Text = "Use On Own Risk!";
             // 
             // lblGeneralSettings
             // 
@@ -383,9 +404,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox cbTopMost;
-        private System.Windows.Forms.CheckBox cbShowInTaskbar;
         private System.Windows.Forms.Panel dragPanel;
         private System.Windows.Forms.PictureBox pboxWindowClose;
         private System.Windows.Forms.TrackBar trackBarIntervalMouseJiggler;
@@ -409,5 +427,8 @@
         private System.Windows.Forms.ComboBox cboxColor;
         private System.Windows.Forms.Button btnColorFoundStatus;
         private System.Windows.Forms.Label lblColorFound;
+        private System.Windows.Forms.Label lblWarning;
+        private CustomCheckBox cbTopMost;
+        private CustomCheckBox cbShowInTaskbar;
     }
 }
