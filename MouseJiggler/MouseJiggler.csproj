@@ -82,6 +82,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorAutoClicker.cs" />
+    <Compile Include="CustomCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DraggableControl.cs">
       <SubType>Form</SubType>
     </Compile>
