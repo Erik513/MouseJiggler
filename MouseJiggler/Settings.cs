@@ -56,19 +56,19 @@ namespace MouseJiggler
             new DraggableControl(lblWarning);
             new DraggableControl(cbTopMost);
             new DraggableControl(cbShowInTaskbar);
-            //MouseJiggler (trackbar nicht)
+            //MouseJiggler (trackbar not included)
             new DraggableControl(panelMouseJiggler);
             new DraggableControl(lblMouseJiggler);
             new DraggableControl(lblMouseJigglerDuration);
             new DraggableControl(lblHotkeyMouseJiggler);
             new DraggableControl(btnMouseJiggler);
-            //MouseAutoClicker (trackbar nicht)
+            //MouseAutoClicker (trackbar  not included)
             new DraggableControl(panelMouseAutoClicker);
             new DraggableControl(lblMouseAutoClicker);
             new DraggableControl(lblHotkeyMouseAutoClicker);
             new DraggableControl(lblMouseAutoClickerDuration);
             new DraggableControl(btnMouseAutoClicker);
-            //ColorAutoClicker (combobox und textbox nicht)
+            //ColorAutoClicker (combobox and textbox not included)
             new DraggableControl(panelColorAutoClicker);
             new DraggableControl(lblColorAutoClicker);
             new DraggableControl(lblCustomColor);
@@ -124,7 +124,6 @@ namespace MouseJiggler
             SetButtonColors();
             SetNotVisibleControls();
         }
-
         private void SetupTrackBars()
         {
             trackBarIntervalMouseJiggler.Minimum = 1;
@@ -139,7 +138,6 @@ namespace MouseJiggler
             trackBarIntervalMouseAutoClicker.Value = mainForm.GetAutoclickerInterval();
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(Per Minute)";
         }
-
         private void SetupColorAutoClicker()
         {
             colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
@@ -225,7 +223,6 @@ namespace MouseJiggler
                 this.TopMost = true;
             }
         }
-
         private void CbShowInTaskbar_CheckStateChanged(object sender, EventArgs e)
         {
             if (mainForm != null)
@@ -235,29 +232,24 @@ namespace MouseJiggler
                 this.TopMost = true;
             }
         }
-
         private void TrackBarInterval_MouseMove(object sender, MouseEventArgs e)
         {
             lblMouseJigglerDuration.Text = $"Duration: \nevery {trackBarIntervalMouseJiggler.Value / 10.0} \nSecond(s)";
         }
-
         private void TrackBarInterval_MouseUp(object sender, MouseEventArgs e)
         {
             int interval = (int)(trackBarIntervalMouseJiggler.Value * 100);
             mainForm.SetMouseJigglerInterval(interval);
         }
-
         private void TrackBarIntervalAutoclicker_MouseMove(object sender, MouseEventArgs e)
         {
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(per Minute)";
         }
-
         private void TrackBarIntervalAutoclicker_MouseUp(object sender, MouseEventArgs e)
         {
             int interval = 6000 / trackBarIntervalMouseAutoClicker.Value;
             mainForm.SetAutoclickerInterval(interval);
         }
-
         private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedColor = cboxColor.SelectedItem.ToString();

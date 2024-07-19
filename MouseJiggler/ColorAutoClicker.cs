@@ -14,7 +14,7 @@ namespace MouseJiggler
 {
     public class ColorAutoClicker
     {
-        private Color targetColor = Color.Red; // Beispiel-Ziel-Farbe
+        private Color targetColor = Color.Red;
         private bool isColorAutoClickerRunning = false;
         private Action<Color, bool> updateColorStatusButton;
 
@@ -50,10 +50,10 @@ namespace MouseJiggler
             if (isMouseOverTargetColor)
             {
                 PerformRightClick(cursorPosition);
-                //PerformLeftClick(cursorPosition); // LINKSKLICK
+                //PerformLeftClick(cursorPosition); // LMB
             }
 
-            // Starte erneut die Überprüfung in regelmäßigen Abständen, wenn der AutoClicker läuft
+            // Restart the check at regular intervals when the AutoClicker is running
             if (isColorAutoClickerRunning)
             {
                 Task.Delay(100).ContinueWith(_ => CheckMouseColorAndClick());
@@ -80,7 +80,7 @@ namespace MouseJiggler
         [DllImport("user32.dll", SetLastError = true)]
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
 
-        // Konstanten für Rechten Mausklick
+        // Constants for RMB
         private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const uint MOUSEEVENTF_RIGHTUP = 0x10;
 
@@ -89,7 +89,7 @@ namespace MouseJiggler
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, (uint)position.X, (uint)position.Y, 0, 0);
         }
 
-        // Konstanten für Linken Mausklick
+        // Constants for LMB
         private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
         private const uint MOUSEEVENTF_LEFTUP = 0x04;
 

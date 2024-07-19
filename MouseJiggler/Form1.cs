@@ -162,6 +162,7 @@ namespace MouseJiggler
         {
             return timerMouseJiggler.GetMouseJigglerInterval();
         }
+
         //MouseAutoClicker
         private void StartStopMouseAutoClicker()
         {
@@ -190,6 +191,7 @@ namespace MouseJiggler
         {
             return mouseAutoClicker.GetAutoclickerInterval();
         }
+
         //ColorAutoClicker
         private void StartStopColorAutoClicker()
         {
