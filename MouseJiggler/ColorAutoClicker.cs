@@ -50,6 +50,7 @@ namespace MouseJiggler
             if (isMouseOverTargetColor)
             {
                 PerformRightClick(cursorPosition);
+                //PerformLeftClick(cursorPosition); // LINKSKLICK
             }
 
             // Starte erneut die Überprüfung in regelmäßigen Abständen, wenn der AutoClicker läuft
@@ -79,7 +80,19 @@ namespace MouseJiggler
         [DllImport("user32.dll", SetLastError = true)]
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
 
+        // Konstanten für Rechten Mausklick
         private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const uint MOUSEEVENTF_RIGHTUP = 0x10;
+
+        private void PerformLeftClick(Point position)
+        {
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, (uint)position.X, (uint)position.Y, 0, 0);
+        }
+
+        // Konstanten für Linken Mausklick
+        private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
+        private const uint MOUSEEVENTF_LEFTUP = 0x04;
+
+        
     }
 }
