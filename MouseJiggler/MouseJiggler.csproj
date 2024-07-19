@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorAutoClicker.cs" />
+    <Compile Include="ColorPicker.cs" />
     <Compile Include="CustomCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -123,6 +124,7 @@
     </Compile>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="MouseJiggler_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">

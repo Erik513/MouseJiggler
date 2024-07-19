@@ -56,19 +56,19 @@ namespace MouseJiggler
             new DraggableControl(lblWarning);
             new DraggableControl(cbTopMost);
             new DraggableControl(cbShowInTaskbar);
-            //MouseJiggler (trackbar nicht)
+            //MouseJiggler (trackbar not included)
             new DraggableControl(panelMouseJiggler);
             new DraggableControl(lblMouseJiggler);
             new DraggableControl(lblMouseJigglerDuration);
             new DraggableControl(lblHotkeyMouseJiggler);
             new DraggableControl(btnMouseJiggler);
-            //MouseAutoClicker (trackbar nicht)
+            //MouseAutoClicker (trackbar  not included)
             new DraggableControl(panelMouseAutoClicker);
             new DraggableControl(lblMouseAutoClicker);
             new DraggableControl(lblHotkeyMouseAutoClicker);
             new DraggableControl(lblMouseAutoClickerDuration);
             new DraggableControl(btnMouseAutoClicker);
-            //ColorAutoClicker (combobox und textbox nicht)
+            //ColorAutoClicker (combobox and textbox not included)
             new DraggableControl(panelColorAutoClicker);
             new DraggableControl(lblColorAutoClicker);
             new DraggableControl(lblCustomColor);
@@ -139,7 +139,6 @@ namespace MouseJiggler
             trackBarIntervalMouseAutoClicker.Value = mainForm.GetAutoclickerInterval();
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(Per Minute)";
         }
-
         private void SetupColorAutoClicker()
         {
             colorAutoClicker = new ColorAutoClicker(UpdateColorStatusButton);
@@ -225,7 +224,6 @@ namespace MouseJiggler
                 this.TopMost = true;
             }
         }
-
         private void CbShowInTaskbar_CheckStateChanged(object sender, EventArgs e)
         {
             if (mainForm != null)
@@ -235,45 +233,50 @@ namespace MouseJiggler
                 this.TopMost = true;
             }
         }
-
         private void TrackBarInterval_MouseMove(object sender, MouseEventArgs e)
         {
             lblMouseJigglerDuration.Text = $"Duration: \nevery {trackBarIntervalMouseJiggler.Value / 10.0} \nSecond(s)";
         }
-
         private void TrackBarInterval_MouseUp(object sender, MouseEventArgs e)
         {
             int interval = (int)(trackBarIntervalMouseJiggler.Value * 100);
             mainForm.SetMouseJigglerInterval(interval);
         }
-
         private void TrackBarIntervalAutoclicker_MouseMove(object sender, MouseEventArgs e)
         {
             lblMouseAutoClickerDuration.Text = $"Clicks: \n{trackBarIntervalMouseAutoClicker.Value} \n(per Minute)";
         }
-
         private void TrackBarIntervalAutoclicker_MouseUp(object sender, MouseEventArgs e)
         {
             int interval = 6000 / trackBarIntervalMouseAutoClicker.Value;
             mainForm.SetAutoclickerInterval(interval);
         }
-
         private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedColor = cboxColor.SelectedItem.ToString();
+
             if (selectedColor == "Custom...")
             {
                 lblCustomColor.Visible = true;
                 txtCustomColor.Visible = true;
                 txtCustomColor.Focus();
+                return;
             }
-            else
-            {
-                lblCustomColor.Visible = false;
-                txtCustomColor.Visible = false;
-                Color color = Color.FromName(selectedColor);
-                mainForm.SetColorAutoClickerTargetColor(color);
-            }
+
+            lblCustomColor.Visible = false;
+            txtCustomColor.Visible = false;
+
+            // Convert the color name to a hex code and set it in txtColorToReact
+            Color color = Color.FromName(selectedColor);
+            string hexColor = ColorTranslator.ToHtml(color);
+            txtColorToReact.Text = hexColor;
+
+            // Update the Color Auto Clicker with the selected color
+            mainForm.SetColorAutoClickerTargetColor(color);
+        }
+        public void SetCustomColorHex(string colorHex)
+        {
+            txtCustomColor.Text = colorHex;
         }
         private void TxtCustomColor_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -318,16 +321,19 @@ namespace MouseJiggler
                         //    cboxColor.Items.Insert(cboxColor.Items.Count - 1, hexColor);
                         //}
                         cboxColor.SelectedItem = hexColor;
-                        txtCustomColor.Visible = false;
+                        txtColorToReact.Text = hexColor;
+                        //txtCustomColor.Visible = false;
                     }
                     catch (Exception ex)
                     {
+                        txtColorToReact.Text = "";
                         MessageBox.Show("Invalid color code. Please enter a valid hex color code (e.g., #RRGGBB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCustomColor.Focus();
                     }
                 }
                 else
                 {
+                    txtColorToReact.Text = "";
                     MessageBox.Show("Hex color code must be 6 characters long.");
                 }
             }

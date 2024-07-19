@@ -14,13 +14,14 @@ namespace MouseJiggler
         private const int HOTKEY_ID_MOUSEJIGGLER = 1;
         private const int HOTKEY_ID_MOUSEAUTOCLICKER = 2;
         private const int HOTKEY_ID_COLORAUTOCLICKER = 3;
+        private const int HOTKEY_ID_COLORPICKER = 4;
 
         public MouseJiggler timerMouseJiggler = null;
         public MouseAutoClicker mouseAutoClicker = null;
         public ColorAutoClicker colorAutoClicker = null;
 
         private bool isMouseAutoClickerRunning = false;
-        private bool isColorAutoClickerRunning = false;
+        public bool isColorAutoClickerRunning = false;
 
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -60,6 +61,7 @@ namespace MouseJiggler
             RegisterHotKey(this.Handle, HOTKEY_ID_MOUSEJIGGLER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.J);
             RegisterHotKey(this.Handle, HOTKEY_ID_MOUSEAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.K);
             RegisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.L);
+            RegisterHotKey(this.Handle, HOTKEY_ID_COLORPICKER, (uint)KeyModifiers.Ctrl | (uint)KeyModifiers.Shift, (uint)Keys.C);
         }
         protected override void WndProc(ref Message m)
         {
@@ -91,6 +93,12 @@ namespace MouseJiggler
                 if (settingsForm != null && !IsJiggling && !isMouseAutoClickerRunning)
                     StartStopColorAutoClicker();
             }
+            else if (id == HOTKEY_ID_COLORPICKER)
+            {
+                Point mousePosition = Cursor.Position;
+                string colorHex = ColorPicker.GetColorAt(mousePosition);
+                settingsForm.SetCustomColorHex(colorHex);
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -98,6 +106,7 @@ namespace MouseJiggler
             UnregisterHotKey(this.Handle, HOTKEY_ID_MOUSEJIGGLER);
             UnregisterHotKey(this.Handle, HOTKEY_ID_MOUSEAUTOCLICKER);
             UnregisterHotKey(this.Handle, HOTKEY_ID_COLORAUTOCLICKER);
+            UnregisterHotKey(this.Handle, HOTKEY_ID_COLORPICKER);
 
             base.OnFormClosing(e);
         }
@@ -162,6 +171,7 @@ namespace MouseJiggler
         {
             return timerMouseJiggler.GetMouseJigglerInterval();
         }
+
         //MouseAutoClicker
         private void StartStopMouseAutoClicker()
         {
@@ -190,8 +200,9 @@ namespace MouseJiggler
         {
             return mouseAutoClicker.GetAutoclickerInterval();
         }
+
         //ColorAutoClicker
-        private void StartStopColorAutoClicker()
+        public void StartStopColorAutoClicker()
         {
             if (isColorAutoClickerRunning)
             {
