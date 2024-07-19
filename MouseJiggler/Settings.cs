@@ -254,19 +254,29 @@ namespace MouseJiggler
         private void CboxColor_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedColor = cboxColor.SelectedItem.ToString();
+
             if (selectedColor == "Custom...")
             {
                 lblCustomColor.Visible = true;
                 txtCustomColor.Visible = true;
                 txtCustomColor.Focus();
+                return;
             }
-            else
-            {
-                lblCustomColor.Visible = false;
-                txtCustomColor.Visible = false;
-                Color color = Color.FromName(selectedColor);
-                mainForm.SetColorAutoClickerTargetColor(color);
-            }
+
+            lblCustomColor.Visible = false;
+            txtCustomColor.Visible = false;
+
+            // Convert the color name to a hex code and set it in txtColorToReact
+            Color color = Color.FromName(selectedColor);
+            string hexColor = ColorTranslator.ToHtml(color);
+            txtColorToReact.Text = hexColor;
+
+            // Update the Color Auto Clicker with the selected color
+            mainForm.SetColorAutoClickerTargetColor(color);
+        }
+        public void SetCustomColorHex(string colorHex)
+        {
+            txtCustomColor.Text = colorHex;
         }
         private void TxtCustomColor_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -311,16 +321,19 @@ namespace MouseJiggler
                         //    cboxColor.Items.Insert(cboxColor.Items.Count - 1, hexColor);
                         //}
                         cboxColor.SelectedItem = hexColor;
-                        txtCustomColor.Visible = false;
+                        txtColorToReact.Text = hexColor;
+                        //txtCustomColor.Visible = false;
                     }
                     catch (Exception ex)
                     {
+                        txtColorToReact.Text = "";
                         MessageBox.Show("Invalid color code. Please enter a valid hex color code (e.g., #RRGGBB).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCustomColor.Focus();
                     }
                 }
                 else
                 {
+                    txtColorToReact.Text = "";
                     MessageBox.Show("Hex color code must be 6 characters long.");
                 }
             }

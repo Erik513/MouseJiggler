@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorAutoClicker.cs" />
+    <Compile Include="ColorPicker.cs" />
     <Compile Include="CustomCheckBox.cs">
       <SubType>Component</SubType>
     </Compile>

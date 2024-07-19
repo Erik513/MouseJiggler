@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
-            this.cbTopMost = new CustomCheckBox();
-            this.cbShowInTaskbar = new CustomCheckBox();
+            this.cbTopMost = new MouseJiggler.CustomCheckBox();
+            this.cbShowInTaskbar = new MouseJiggler.CustomCheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
             this.panelColorAutoClicker = new System.Windows.Forms.Panel();
+            this.txtColorToReact = new System.Windows.Forms.TextBox();
             this.lblCustomColor = new System.Windows.Forms.Label();
             this.txtCustomColor = new System.Windows.Forms.TextBox();
             this.lblColorFound = new System.Windows.Forms.Label();
@@ -58,7 +58,6 @@
             this.lblWarning = new System.Windows.Forms.Label();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
-            this.timerMouseJiggler = new System.Windows.Forms.Timer(this.components);
             this.dragPanel.SuspendLayout();
             this.panelColorAutoClicker.SuspendLayout();
             this.panelMouseAutoClicker.SuspendLayout();
@@ -103,7 +102,7 @@
             this.dragPanel.Controls.Add(this.panelGeneralSettings);
             this.dragPanel.Location = new System.Drawing.Point(5, 5);
             this.dragPanel.Name = "dragPanel";
-            this.dragPanel.Size = new System.Drawing.Size(410, 425);
+            this.dragPanel.Size = new System.Drawing.Size(410, 445);
             this.dragPanel.TabIndex = 10;
             // 
             // panelColorAutoClicker
@@ -111,6 +110,7 @@
             this.panelColorAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelColorAutoClicker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelColorAutoClicker.Controls.Add(this.txtColorToReact);
             this.panelColorAutoClicker.Controls.Add(this.lblCustomColor);
             this.panelColorAutoClicker.Controls.Add(this.txtCustomColor);
             this.panelColorAutoClicker.Controls.Add(this.lblColorFound);
@@ -121,8 +121,18 @@
             this.panelColorAutoClicker.Controls.Add(this.btnColorAutoClicker);
             this.panelColorAutoClicker.Location = new System.Drawing.Point(5, 320);
             this.panelColorAutoClicker.Name = "panelColorAutoClicker";
-            this.panelColorAutoClicker.Size = new System.Drawing.Size(400, 100);
+            this.panelColorAutoClicker.Size = new System.Drawing.Size(400, 120);
             this.panelColorAutoClicker.TabIndex = 18;
+            // 
+            // txtColorToReact
+            // 
+            this.txtColorToReact.Location = new System.Drawing.Point(254, 90);
+            this.txtColorToReact.MaxLength = 7;
+            this.txtColorToReact.Name = "txtColorToReact";
+            this.txtColorToReact.ReadOnly = true;
+            this.txtColorToReact.Size = new System.Drawing.Size(69, 20);
+            this.txtColorToReact.TabIndex = 18;
+            this.txtColorToReact.TabStop = false;
             // 
             // lblCustomColor
             // 
@@ -130,7 +140,7 @@
             this.lblCustomColor.AutoSize = true;
             this.lblCustomColor.BackColor = System.Drawing.Color.Black;
             this.lblCustomColor.ForeColor = System.Drawing.Color.White;
-            this.lblCustomColor.Location = new System.Drawing.Point(172, 47);
+            this.lblCustomColor.Location = new System.Drawing.Point(12, 75);
             this.lblCustomColor.Name = "lblCustomColor";
             this.lblCustomColor.Size = new System.Drawing.Size(72, 13);
             this.lblCustomColor.TabIndex = 17;
@@ -138,7 +148,7 @@
             // 
             // txtCustomColor
             // 
-            this.txtCustomColor.Location = new System.Drawing.Point(175, 63);
+            this.txtCustomColor.Location = new System.Drawing.Point(15, 91);
             this.txtCustomColor.MaxLength = 7;
             this.txtCustomColor.Name = "txtCustomColor";
             this.txtCustomColor.Size = new System.Drawing.Size(69, 20);
@@ -150,7 +160,7 @@
             this.lblColorFound.AutoSize = true;
             this.lblColorFound.BackColor = System.Drawing.Color.Black;
             this.lblColorFound.ForeColor = System.Drawing.Color.White;
-            this.lblColorFound.Location = new System.Drawing.Point(260, 48);
+            this.lblColorFound.Location = new System.Drawing.Point(330, 75);
             this.lblColorFound.Name = "lblColorFound";
             this.lblColorFound.Size = new System.Drawing.Size(64, 13);
             this.lblColorFound.TabIndex = 15;
@@ -161,7 +171,7 @@
             this.btnColorFoundStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnColorFoundStatus.BackColor = System.Drawing.SystemColors.Control;
             this.btnColorFoundStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnColorFoundStatus.Location = new System.Drawing.Point(259, 64);
+            this.btnColorFoundStatus.Location = new System.Drawing.Point(329, 91);
             this.btnColorFoundStatus.Name = "btnColorFoundStatus";
             this.btnColorFoundStatus.Size = new System.Drawing.Size(65, 19);
             this.btnColorFoundStatus.TabIndex = 14;
@@ -173,7 +183,7 @@
             this.cboxColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboxColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxColor.FormattingEnabled = true;
-            this.cboxColor.Location = new System.Drawing.Point(14, 62);
+            this.cboxColor.Location = new System.Drawing.Point(14, 42);
             this.cboxColor.Name = "cboxColor";
             this.cboxColor.Size = new System.Drawing.Size(155, 21);
             this.cboxColor.TabIndex = 13;
@@ -207,7 +217,8 @@
             this.btnColorAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnColorAutoClicker.BackColor = System.Drawing.SystemColors.Control;
             this.btnColorAutoClicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnColorAutoClicker.Location = new System.Drawing.Point(330, 64);
+            this.btnColorAutoClicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColorAutoClicker.Location = new System.Drawing.Point(330, 26);
             this.btnColorAutoClicker.Name = "btnColorAutoClicker";
             this.btnColorAutoClicker.Size = new System.Drawing.Size(65, 19);
             this.btnColorAutoClicker.TabIndex = 12;
@@ -275,7 +286,7 @@
             this.btnMouseAutoClicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMouseAutoClicker.BackColor = System.Drawing.SystemColors.Control;
             this.btnMouseAutoClicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMouseAutoClicker.Location = new System.Drawing.Point(330, 64);
+            this.btnMouseAutoClicker.Location = new System.Drawing.Point(330, 26);
             this.btnMouseAutoClicker.Name = "btnMouseAutoClicker";
             this.btnMouseAutoClicker.Size = new System.Drawing.Size(65, 19);
             this.btnMouseAutoClicker.TabIndex = 12;
@@ -302,7 +313,7 @@
             this.btnMouseJiggler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMouseJiggler.BackColor = System.Drawing.SystemColors.Control;
             this.btnMouseJiggler.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMouseJiggler.Location = new System.Drawing.Point(330, 64);
+            this.btnMouseJiggler.Location = new System.Drawing.Point(330, 26);
             this.btnMouseJiggler.Name = "btnMouseJiggler";
             this.btnMouseJiggler.Size = new System.Drawing.Size(65, 19);
             this.btnMouseJiggler.TabIndex = 15;
@@ -408,7 +419,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlText;
-            this.ClientSize = new System.Drawing.Size(420, 430);
+            this.ClientSize = new System.Drawing.Size(420, 450);
             this.Controls.Add(this.dragPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Settings";
@@ -458,6 +469,6 @@
         private CustomCheckBox cbShowInTaskbar;
         private System.Windows.Forms.Label lblCustomColor;
         private System.Windows.Forms.TextBox txtCustomColor;
-        private System.Windows.Forms.Timer timerMouseJiggler;
+        private System.Windows.Forms.TextBox txtColorToReact;
     }
 }

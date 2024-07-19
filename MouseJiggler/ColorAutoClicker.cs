@@ -15,7 +15,7 @@ namespace MouseJiggler
     public class ColorAutoClicker
     {
         private Color targetColor = Color.Red;
-        private bool isColorAutoClickerRunning = false;
+        public bool isColorAutoClickerRunning = false;
         private Action<Color, bool> updateColorStatusButton;
 
         public bool IsColorAutoClickerRunning => isColorAutoClickerRunning;
