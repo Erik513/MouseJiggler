@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.cbTopMost = new CustomCheckBox();
             this.cbShowInTaskbar = new CustomCheckBox();
@@ -57,6 +58,7 @@
             this.lblWarning = new System.Windows.Forms.Label();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.pboxWindowClose = new System.Windows.Forms.PictureBox();
+            this.timerMouseJiggler = new System.Windows.Forms.Timer(this.components);
             this.dragPanel.SuspendLayout();
             this.panelColorAutoClicker.SuspendLayout();
             this.panelMouseAutoClicker.SuspendLayout();
@@ -456,5 +458,6 @@
         private CustomCheckBox cbShowInTaskbar;
         private System.Windows.Forms.Label lblCustomColor;
         private System.Windows.Forms.TextBox txtCustomColor;
+        private System.Windows.Forms.Timer timerMouseJiggler;
     }
 }

@@ -50,6 +50,7 @@ namespace MouseJiggler
             if (isMouseOverTargetColor)
             {
                 PerformRightClick(cursorPosition);
+                //ClickCenterOfScreen(); //Optional (Has to be tested)
                 //PerformLeftClick(cursorPosition); // LMB
             }
 
@@ -84,6 +85,19 @@ namespace MouseJiggler
         private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const uint MOUSEEVENTF_RIGHTUP = 0x10;
 
+        // Method to calculate the center of the screen and left-click there
+        private void ClickCenterOfScreen()
+        {
+            // Get the screen size
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            // Calculate point in the center
+            Point center = new Point(screenWidth / 2, screenHeight / 2);
+
+            // Left-click in the middle of the screen
+            PerformLeftClick(center);
+        }
         private void PerformLeftClick(Point position)
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, (uint)position.X, (uint)position.Y, 0, 0);

@@ -124,6 +124,7 @@ namespace MouseJiggler
             SetButtonColors();
             SetNotVisibleControls();
         }
+
         private void SetupTrackBars()
         {
             trackBarIntervalMouseJiggler.Minimum = 1;
