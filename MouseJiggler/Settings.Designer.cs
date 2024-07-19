@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
-            this.cbTopMost = new MouseJiggler.CustomCheckBox();
-            this.cbShowInTaskbar = new MouseJiggler.CustomCheckBox();
+            this.cbTopMost = new CustomCheckBox();
+            this.cbShowInTaskbar = new CustomCheckBox();
             this.dragPanel = new System.Windows.Forms.Panel();
             this.panelColorAutoClicker = new System.Windows.Forms.Panel();
             this.txtColorToReact = new System.Windows.Forms.TextBox();
