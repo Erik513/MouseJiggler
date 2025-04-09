@@ -49,9 +49,9 @@ namespace MouseJiggler
 
             if (isMouseOverTargetColor)
             {
-                PerformRightClick(cursorPosition);
+                //PerformRightClick(cursorPosition);               // RECHTSKLICK
                 //ClickCenterOfScreen(); //Optional (Has to be tested)
-                //PerformLeftClick(cursorPosition); // LMB
+                PerformLeftClick(cursorPosition); // LMB           // LINKSKLICK
             }
 
             // Restart the check at regular intervals when the AutoClicker is running
